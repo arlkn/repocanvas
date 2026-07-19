@@ -26,6 +26,11 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { useReadmeStore } from "@/store/readme-store";
 import { useTheme } from "@/hooks/use-theme";
 import { copyToClipboard, downloadFile } from "@/lib/utils";
@@ -48,8 +53,6 @@ export function TopBar() {
   } = useReadmeStore();
 
   const { theme, setTheme } = useTheme();
-  const [showThemeMenu, setShowThemeMenu] = React.useState(false);
-
   const canUndo = historyIndex > 0;
   const canRedo = historyIndex < history.length - 1;
 
@@ -206,14 +209,13 @@ export function TopBar() {
 
         <div className="h-6 w-px bg-border mx-1 hidden sm:block" />
 
-        <div className="relative hidden sm:block">
-          <Tooltip>
-            <TooltipTrigger asChild>
+        <div className="hidden sm:block">
+          <Popover>
+            <PopoverTrigger asChild>
               <Button
                 variant="ghost"
                 size="icon"
                 className="h-8 w-8"
-                onClick={() => setShowThemeMenu(!showThemeMenu)}
               >
                 {theme === "light" ? (
                   <Sun className="h-3.5 w-3.5" />
@@ -223,12 +225,8 @@ export function TopBar() {
                   <Monitor className="h-3.5 w-3.5" />
                 )}
               </Button>
-            </TooltipTrigger>
-            <TooltipContent>Theme</TooltipContent>
-          </Tooltip>
-
-          {showThemeMenu && (
-            <div className="absolute top-full right-0 mt-1 bg-popover border rounded-lg shadow-lg p-1 z-50 min-w-[120px]">
+            </PopoverTrigger>
+            <PopoverContent align="end" sideOffset={8} className="w-40 p-1">
               {themeOptions.map(({ value, icon: Icon, label }) => (
                 <button
                   key={value}
@@ -238,17 +236,14 @@ export function TopBar() {
                       ? "bg-accent text-accent-foreground"
                       : "hover:bg-accent/50"
                   )}
-                  onClick={() => {
-                    setTheme(value);
-                    setShowThemeMenu(false);
-                  }}
+                  onClick={() => setTheme(value)}
                 >
                   <Icon className="h-4 w-4" />
                   {label}
                 </button>
               ))}
-            </div>
-          )}
+            </PopoverContent>
+          </Popover>
         </div>
 
         <Tooltip>
