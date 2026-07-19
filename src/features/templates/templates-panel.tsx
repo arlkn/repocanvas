@@ -2,7 +2,6 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { useReadmeStore } from "@/store/readme-store";
 import { TEMPLATES } from "@/lib/constants";
 import {
@@ -60,14 +59,7 @@ export function TemplatesPanel() {
                   <Icon className="h-4.5 w-4.5 text-muted-foreground group-hover:text-primary transition-colors" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <h4 className="text-sm font-medium">{template.name}</h4>
-                    {template.id === "arlkn-example" && (
-                      <Badge variant="secondary" className="text-[10px]">
-                        Example
-                      </Badge>
-                    )}
-                  </div>
+                  <h4 className="text-sm font-medium">{template.name}</h4>
                   <p className="text-xs text-muted-foreground mt-0.5">
                     {template.description}
                   </p>
