@@ -160,6 +160,11 @@ export function Sidebar() {
 
   const [collapsed, setCollapsed] = React.useState(false);
   const [showAddMenu, setShowAddMenu] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -219,29 +224,53 @@ export function Sidebar() {
 
       {!collapsed && (
         <ScrollArea className="flex-1 p-2">
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={handleDragEnd}
-          >
-            <SortableContext
-              items={config.sections.map((s) => s.id)}
-              strategy={verticalListSortingStrategy}
+          {mounted ? (
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}
             >
-              <div className="space-y-1">
-                {config.sections.map((section) => (
-                  <SortableItem
+              <SortableContext
+                items={config.sections.map((s) => s.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                <div className="space-y-1">
+                  {config.sections.map((section) => (
+                    <SortableItem
+                      key={section.id}
+                      section={section}
+                      isActive={activeSection === section.id}
+                      onSelect={setActiveSection}
+                      onToggle={toggleSection}
+                      onRemove={removeSection}
+                    />
+                  ))}
+                </div>
+              </SortableContext>
+            </DndContext>
+          ) : (
+            <div className="space-y-1">
+              {config.sections.map((section) => {
+                const Icon = SECTION_ICONS[section.type] || FileText;
+                return (
+                  <div
                     key={section.id}
-                    section={section}
-                    isActive={activeSection === section.id}
-                    onSelect={setActiveSection}
-                    onToggle={toggleSection}
-                    onRemove={removeSection}
-                  />
-                ))}
-              </div>
-            </SortableContext>
-          </DndContext>
+                    className={cn(
+                      "flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm transition-all duration-150 cursor-pointer",
+                      activeSection === section.id
+                        ? "bg-primary/10 text-primary border border-primary/20"
+                        : "hover:bg-muted/50 text-muted-foreground hover:text-foreground border border-transparent"
+                    )}
+                    onClick={() => setActiveSection(section.id)}
+                  >
+                    <div className="w-3.5" />
+                    <Icon className="h-4 w-4 shrink-0" />
+                    <span className="flex-1 truncate font-medium">{section.title}</span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </ScrollArea>
       )}
 
