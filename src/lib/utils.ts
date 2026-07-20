@@ -20,6 +20,7 @@ export function formatDate(date: Date): string {
 export function formatRelativeTime(date: Date): string {
   const now = new Date();
   const diffMs = now.getTime() - date.getTime();
+  if (diffMs < 0) return "Just now";
   const diffMins = Math.floor(diffMs / 60000);
   const diffHours = Math.floor(diffMins / 60);
   const diffDays = Math.floor(diffHours / 24);
@@ -47,13 +48,16 @@ export function downloadFile(content: string, filename: string, mimeType: string
   link.href = url;
   link.download = filename;
   document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
+  try {
+    link.click();
+  } finally {
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  }
 }
 
 export function formatBytes(bytes: number): string {
-  if (bytes === 0) return "0 B";
+  if (bytes <= 0) return "0 B";
   const k = 1024;
   const sizes = ["B", "KB", "MB", "GB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));

@@ -1,159 +1,98 @@
-export type Theme = "light" | "dark" | "system";
+export type SectionType =
+  | "hero"
+  | "about"
+  | "tech-stack"
+  | "features"
+  | "github-widgets"
+  | "social"
+  | "license";
 
-export type AnalysisCategory =
-  | "performance"
-  | "seo"
-  | "accessibility"
-  | "mobile-usability"
-  | "content-quality"
-  | "ux"
-  | "conversion-readiness"
-  | "security"
-  | "technical-quality";
+export type DisplayStyle = "icons" | "logos" | "list";
 
-export type FindingSeverity = "critical" | "high" | "medium" | "low" | "info";
+export type GitHubWidgetTheme = "transparent" | "dark" | "flat";
 
-export type FindingStatus = "passed" | "failed" | "warning";
+export interface HeroData {
+  tagline: string;
+  subtitle: string;
+  showBranding: boolean;
+}
 
-export type Effort = "low" | "medium" | "high";
+export interface AboutData {
+  content: string;
+}
 
-export type Grade = "Excellent" | "Good" | "Needs Improvement" | "Poor" | "Critical";
+export interface TechItem {
+  name: string;
+  icon: string;
+  color?: string;
+}
 
-export interface Finding {
-  id: string;
-  category: AnalysisCategory;
+export interface TechStackData {
+  items: TechItem[];
+  displayStyle: DisplayStyle;
+}
+
+export interface FeatureItem {
+  icon: string;
   title: string;
   description: string;
-  severity: FindingSeverity;
-  status: FindingStatus;
-  evidence?: string;
-  recommendation?: string;
-  impact?: string;
-  effort?: Effort;
 }
 
-export interface CategoryScore {
-  category: AnalysisCategory;
-  score: number;
-  grade: Grade;
-  summary: string;
-  passedChecks: Finding[];
-  failedChecks: Finding[];
-  warningChecks: Finding[];
+export interface FeaturesData {
+  items: FeatureItem[];
 }
 
-export interface PerformanceMetrics {
-  fcp?: string;
-  lcp?: string;
-  tbt?: string;
-  cls?: string;
-  speedIndex?: string;
-  tti?: string;
+export interface GitHubWidgetsData {
+  stats: boolean;
+  streak: boolean;
+  languages: boolean;
+  activity: boolean;
+  theme: GitHubWidgetTheme;
 }
 
-export interface PageMetadata {
-  finalUrl: string;
-  httpStatus: number;
-  title: string;
-  metaDescription: string;
-  canonicalUrl: string;
-  language: string;
-  characterEncoding: string;
-  viewport: string;
-  favicon: string;
-  contentType: string;
-  responseTime: number;
-  htmlSize: number;
+export interface SocialLink {
+  platform: string;
+  url: string;
+  label: string;
 }
 
-export interface TechnicalMetrics {
-  imageCount: number;
-  scriptCount: number;
-  stylesheetCount: number;
-  linkCount: number;
-  internalLinks: number;
-  externalLinks: number;
-  hasRobotsTxt: boolean;
-  hasSitemap: boolean;
-  hasStructuredData: boolean;
-  hasServiceWorker: boolean;
+export interface SocialData {
+  links: SocialLink[];
 }
 
-export interface SecurityHeaders {
-  https: boolean;
-  hsts: boolean;
-  contentSecurityPolicy: boolean;
-  xContentTypeOptions: boolean;
-  referrerPolicy: boolean;
-  permissionsPolicy: boolean;
-  xFrameOptions: boolean;
-  mixedContent: boolean;
+export type LicenseType = "MIT" | "Apache-2.0" | "GPL-3.0" | "BSD-2-Clause" | "Unlicense";
+
+export interface LicenseData {
+  type: LicenseType;
+  year: string;
+  copyrightHolder: string;
 }
 
-export interface AIRecommendations {
-  executiveSummary: string;
-  strongestAspects: string[];
-  mostImportantWeaknesses: string[];
-  quickWins: string[];
-  highImpactImprovements: string[];
-  suggestedHeadline: string;
-  suggestedSubheadline: string;
-  suggestedPrimaryCta: string;
-  suggestedMetaDescription: string;
-  contentImprovements: string[];
-  homepageStructure: string[];
-  conversionRecommendations: string[];
-  accessibilityRecommendations: string[];
-}
+export type SectionData =
+  | HeroData
+  | AboutData
+  | TechStackData
+  | FeaturesData
+  | GitHubWidgetsData
+  | SocialData
+  | LicenseData;
 
-export interface AnalysisReport {
+export interface Section {
   id: string;
-  url: string;
+  type: SectionType;
   title: string;
-  screenshot?: string;
-  mobileScreenshot?: string;
-  analyzedAt: string;
-  overallScore: number;
-  overallGrade: Grade;
-  categoryScores: CategoryScore[];
-  findings: Finding[];
-  metadata: PageMetadata;
-  performanceMetrics: PerformanceMetrics;
-  technicalMetrics: TechnicalMetrics;
-  securityHeaders: SecurityHeaders;
-  aiRecommendations?: AIRecommendations;
+  visible: boolean;
+  data: SectionData;
 }
 
-export interface AnalysisProgress {
-  stage: string;
-  message: string;
-  completed: boolean;
-  error?: string;
+export interface ReadmeConfig {
+  username: string;
+  sections: Section[];
 }
 
-export interface AnalysisState {
-  url: string;
-  progress: AnalysisProgress[];
-  report: AnalysisReport | null;
-  error: string | null;
-  isAnalyzing: boolean;
-}
-
-export interface ReportHistoryEntry {
-  id: string;
-  url: string;
-  title: string;
-  overallScore: number;
-  overallGrade: Grade;
-  screenshot?: string;
-  analyzedAt: string;
-}
-
-export interface AppSettings {
-  theme: Theme;
-  aiProvider: string;
-  aiModel: string;
-  aiEnabled: boolean;
-  reportDetail: "summary" | "detailed";
-  historyEnabled: boolean;
+export interface Template {
+  name: string;
+  description: string;
+  icon: string;
+  config: ReadmeConfig;
 }

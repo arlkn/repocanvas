@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Toaster } from "sonner";
+import { ToastProvider } from "@/components/layout/toast-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,11 +15,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Inspectra - Analyze Websites From Every Angle",
+  title: "RepoCanvas - Premium GitHub README Builder",
   description:
-    "AI-powered website analysis platform that reviews public websites for performance, SEO, accessibility, UX, and more.",
+    "Build beautiful GitHub READMEs without manually writing Markdown. Premium profile and repository branding builder for developers.",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+      { url: "/icon-1024.png", sizes: "1024x1024", type: "image/png" },
+    ],
   },
 };
 
@@ -34,11 +37,11 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-screen flex flex-col overflow-hidden">
         <TooltipProvider delayDuration={200}>
           {children}
         </TooltipProvider>
-        <Toaster position="top-right" richColors />
+        <ToastProvider />
       </body>
     </html>
   );
