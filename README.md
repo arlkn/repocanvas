@@ -1,8 +1,8 @@
 <div align="center">
 
-# Inspectra
+# RepoCanvas
 
-### AI-Powered Website Analysis Platform
+### Premium GitHub README Builder
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
@@ -10,9 +10,9 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
-**Analyze websites from every angle.**
+**Build beautiful GitHub READMEs without manually writing Markdown.**
 
-[Features](#features) | [Getting Started](#getting-started) | [Tech Stack](#tech-stack) | [Architecture](#architecture) | [Roadmap](#roadmap) | [Contributing](#contributing)
+[Features](#features) | [Getting Started](#getting-started) | [Tech Stack](#tech-stack) | [Architecture](#architecture) | [Contributing](#contributing)
 
 </div>
 
@@ -20,21 +20,22 @@
 
 ## About
 
-Inspectra is an AI-powered website analysis platform that reviews public websites across 9 categories: performance, SEO, accessibility, mobile usability, content quality, UX, conversion readiness, security basics, and technical quality.
+RepoCanvas is a premium GitHub README, profile, and repository branding builder. Create professional READMEs with a visual editor — no Markdown knowledge required.
 
-It uses real technical tools — not just surface-level checks — to deliver actionable findings with severity ratings, effort estimates, and AI-powered recommendations.
+Choose from 6 templates, add sections like hero banners, tech stacks, feature lists, GitHub widgets, social links, and licenses. See a live preview as you build, then download or copy your README.md.
 
 ## Features
 
-- **9 Analysis Categories** — Performance, SEO, Accessibility, Mobile Usability, Content Quality, UX, Conversion Readiness, Security, Technical Quality
-- **Real Technical Analysis** — HTML parsing, DOM inspection, header analysis, metadata extraction
-- **Deterministic Scoring** — Weighted category scores (0-100) with letter grades
-- **SSRF Protection** — Blocks private IPs, localhost, cloud metadata endpoints, and encoded bypass attempts
-- **Prioritized Findings** — Critical fixes, quick wins, and high-impact improvements sorted by severity and effort
-- **AI Recommendations** — Executive summaries, content suggestions, and UX improvements (optional, requires API key)
-- **Export & Share** — PDF, JSON, and Markdown report exports
-- **Analysis History** — Track previous analyses with local persistence
+- **Visual Section Editor** — Add, reorder, and configure sections with a point-and-click interface
+- **7 Section Types** — Hero, About, Tech Stack, Features, GitHub Widgets, Social, License
+- **79 Technologies** — Pre-configured tech icons via skillicons.dev with shields.io fallback
+- **Live Markdown Preview** — See your README rendered in real-time as you edit
+- **GitHub Widgets** — Stats, streak, top languages, and activity graphs with theme support
+- **6 Templates** — Minimal, Developer, Showcase, Creative, Organization, Blank
+- **Export & Copy** — Download as README.md or copy to clipboard instantly
+- **Command Palette** — Quick search and add sections with keyboard shortcuts
 - **Dark Mode** — Premium dark theme with spectrum-inspired accents
+- **Persistent Config** — Your work is saved to localStorage automatically
 
 ## Getting Started
 
@@ -47,10 +48,10 @@ It uses real technical tools — not just surface-level checks — to deliver ac
 
 ```bash
 # Clone the repository
-git clone https://github.com/arlkn/inspectra.git
+git clone https://github.com/arlkn/repocanvas.git
 
 # Navigate to the project
-cd inspectra
+cd repocanvas
 
 # Install dependencies
 npm install
@@ -60,19 +61,6 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### Environment Variables
-
-Copy `.env.example` to `.env.local` and configure:
-
-```bash
-AI_PROVIDER=        # Optional: AI provider name
-AI_API_KEY=         # Optional: API key for AI recommendations
-AI_MODEL=           # Optional: Model to use for AI
-APP_URL=            # Your app URL
-ANALYSIS_TIMEOUT_MS=30000
-MAX_RESPONSE_SIZE_BYTES=5242880
-```
 
 ### Commands
 
@@ -92,11 +80,10 @@ MAX_RESPONSE_SIZE_BYTES=5242880
 | Language | TypeScript 5 (strict) |
 | Styling | Tailwind CSS 4 |
 | UI Components | shadcn/ui, Radix UI |
-| State | Zustand |
-| Icons | Lucide React |
+| State | Zustand (with localStorage persist) |
+| Markdown | react-markdown, remark-gfm |
+| Icons | Lucide React, skillicons.dev |
 | Animation | Framer Motion |
-| Charts | Recharts |
-| HTML Parsing | Cheerio |
 | Forms | React Hook Form, Zod |
 | Testing | Vitest, React Testing Library |
 
@@ -104,62 +91,43 @@ MAX_RESPONSE_SIZE_BYTES=5242880
 
 ```
 src/
-├── app/                    # Next.js App Router pages & API routes
-│   ├── page.tsx            # Landing page
-│   ├── analyze/            # Analysis progress page
-│   ├── report/[id]/        # Report dashboard
-│   ├── history/            # Analysis history
-│   ├── settings/           # User settings
-│   └── api/analyze/        # Analysis API endpoint
+├── app/                        # Next.js App Router
+│   ├── page.tsx                # Main builder page
+│   └── layout.tsx              # Root layout with theme
 ├── components/
-│   ├── ui/                 # shadcn/ui components
-│   ├── layout/             # Header, Footer, Logo
-│   ├── landing/            # Landing page sections
-│   ├── report/             # Report dashboard components
-│   ├── charts/             # Recharts visualizations
-│   └── findings/           # Finding cards and filters
+│   ├── ui/                     # shadcn/ui components + TechIcon
+│   ├── layout/                 # Sidebar, TopBar, CommandPalette, ToastProvider
+│   ├── editor/                 # Section editor router
+│   └── preview/                # Live markdown preview
 ├── features/
-│   ├── url-form/           # URL input with validation
-│   ├── analyzer/           # Analysis pipeline
-│   ├── scoring/            # Category scoring engine
-│   ├── ai-review/          # AI recommendation system
-│   ├── export/             # PDF/JSON/Markdown export
-│   └── screenshots/        # Playwright screenshot capture
-├── hooks/                  # Custom React hooks
+│   ├── hero/                   # Hero section editor
+│   ├── about/                  # About section editor
+│   ├── tech-stack/             # Tech stack editor (79 technologies)
+│   ├── features/               # Features section editor
+│   ├── github-widgets/         # GitHub widgets editor
+│   ├── social/                 # Social links editor
+│   └── license/                # License section editor
 ├── lib/
-│   ├── url-validation.ts   # SSRF protection & URL normalization
-│   ├── scoring.ts          # Deterministic scoring engine
-│   ├── storage.ts          # localStorage persistence
-│   ├── constants.ts        # App config & category definitions
-│   └── utils.ts            # Shared utilities
-├── store/                  # Zustand stores (UI, analysis state)
-├── types/                  # Shared TypeScript types
-└── test/                   # Unit & integration tests
+│   ├── constants.ts            # Technologies, templates, section types
+│   ├── markdown-engine.ts      # Generates README markdown from config
+│   └── utils.ts                # Shared utilities
+├── store/
+│   └── readme-store.ts         # Zustand store with persist
+├── types/
+│   └── index.ts                # Shared TypeScript types
+└── test/
+    └── markdown-engine.test.ts # Markdown engine tests
 ```
-
-## Security
-
-Inspectra implements SSRF protections when fetching external websites:
-
-- Blocks localhost, private IPs (10.x, 172.16-31.x, 192.168.x), and link-local addresses
-- Blocks cloud metadata endpoints (169.254.169.254)
-- Blocks `file://`, `ftp://`, `data:`, `javascript:` schemes
-- Validates DNS resolution to ensure public addresses
-- Limits response size and redirect count
-- Sets appropriate User-Agent headers
-
-**Note:** This is not a penetration test or complete security audit tool.
 
 ## Roadmap
 
-- [ ] Lighthouse integration
-- [ ] Playwright screenshot capture
-- [ ] Full analysis pipeline with all 9 categories
-- [ ] AI provider abstraction (OpenAI, Anthropic, etc.)
-- [ ] PDF export
-- [ ] Analysis history with re-run support
-- [ ] Demo mode with sample report
-- [ ] Mobile-first responsive dashboard
+- [ ] Profile README builder (separate from repo READMEs)
+- [ ] Custom section types
+- [ ] Import existing README for editing
+- [ ] More GitHub widgets (contributions, sponsors)
+- [ ] SVG badge generator
+- [ ] Template sharing via URL
+- [ ] Multi-language support
 
 ## Contributing
 
@@ -180,15 +148,11 @@ Please make sure to:
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
 
-## Disclaimer
-
-Inspectra provides automated website analysis and heuristic recommendations. It is not a substitute for a complete manual accessibility audit, penetration test, legal review, or professional SEO consultation.
-
 ---
 
 <div align="center">
 
-**Built with care for developers, designers, agencies, and small businesses**
+**Built with care for developers who want beautiful READMEs**
 
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/arlkn)
 
