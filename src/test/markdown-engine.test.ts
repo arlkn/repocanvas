@@ -82,7 +82,7 @@ describe("generateMarkdown", () => {
     }
     const markdown = generateMarkdown(config);
     expect(markdown).toContain("## Tech Stack");
-    expect(markdown).toContain("skillicons.dev");
+    expect(markdown).toContain("img.shields.io");
     expect(markdown).toContain("TypeScript");
     expect(markdown).toContain("React");
   });
