@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
-import { useReadmeStore } from "@/store/readme-store";
+import { useUIStore } from "@/store/ui-store";
 
 export function useTheme() {
-  const { config, setTheme } = useReadmeStore();
+  const { theme, setTheme } = useUIStore();
 
   const resolvedTheme = useMemo<"light" | "dark">(() => {
-    if (config.theme === "system") {
+    if (theme === "system") {
       if (typeof window !== "undefined") {
         return window.matchMedia("(prefers-color-scheme: dark)").matches
           ? "dark"
@@ -15,22 +15,22 @@ export function useTheme() {
       }
       return "dark";
     }
-    return config.theme;
-  }, [config.theme]);
+    return theme;
+  }, [theme]);
 
   useEffect(() => {
     const root = document.documentElement;
     root.classList.remove("light", "dark");
 
-    if (config.theme === "system") {
+    if (theme === "system") {
       const prefersDark = window.matchMedia(
         "(prefers-color-scheme: dark)"
       ).matches;
       root.classList.add(prefersDark ? "dark" : "light");
     } else {
-      root.classList.add(config.theme);
+      root.classList.add(theme);
     }
-  }, [config.theme]);
+  }, [theme]);
 
-  return { theme: config.theme, resolvedTheme, setTheme };
+  return { theme, resolvedTheme, setTheme };
 }

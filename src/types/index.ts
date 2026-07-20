@@ -1,177 +1,159 @@
 export type Theme = "light" | "dark" | "system";
 
-export type SectionType =
-  | "header"
-  | "about-me"
-  | "tech-stack"
-  | "projects"
-  | "github-widgets"
-  | "socials"
-  | "license"
-  | "custom";
+export type AnalysisCategory =
+  | "performance"
+  | "seo"
+  | "accessibility"
+  | "mobile-usability"
+  | "content-quality"
+  | "ux"
+  | "conversion-readiness"
+  | "security"
+  | "technical-quality";
 
-export interface HeaderData {
-  name: string;
+export type FindingSeverity = "critical" | "high" | "medium" | "low" | "info";
+
+export type FindingStatus = "passed" | "failed" | "warning";
+
+export type Effort = "low" | "medium" | "high";
+
+export type Grade = "Excellent" | "Good" | "Needs Improvement" | "Poor" | "Critical";
+
+export interface Finding {
+  id: string;
+  category: AnalysisCategory;
   title: string;
-  bio: string;
-  typingAnimation: boolean;
-  banner: string;
-  avatar: string;
-  alignment: "left" | "center" | "right";
-}
-
-export interface AboutMeData {
-  biography: string;
-  currentWork: string;
-  learning: string;
-  funFact: string;
-  contact: string;
-}
-
-export type TechnologyCategory =
-  | "languages"
-  | "frontend"
-  | "backend"
-  | "databases"
-  | "cloud"
-  | "tools";
-
-export interface Technology {
-  name: string;
-  icon: string;
-  category: TechnologyCategory;
-}
-
-export interface TechStackData {
-  selectedTech: Technology[];
-  displayStyle: "grid" | "list" | "badges";
-}
-
-export type ProjectStatus = "active" | "completed" | "archived" | "in-progress";
-
-export interface Project {
-  id: string;
-  name: string;
   description: string;
-  image: string;
-  githubLink: string;
-  website: string;
-  technologies: string[];
-  status: ProjectStatus;
+  severity: FindingSeverity;
+  status: FindingStatus;
+  evidence?: string;
+  recommendation?: string;
+  impact?: string;
+  effort?: Effort;
 }
 
-export interface ProjectsData {
-  projects: Project[];
-  layout: "grid" | "list";
-}
-
-export interface GitHubWidgetsData {
-  stats: boolean;
-  streak: boolean;
-  activityGraph: boolean;
-  topLanguages: boolean;
-  trophies: boolean;
-  username: string;
-}
-
-export type SocialPlatform =
-  | "github"
-  | "linkedin"
-  | "twitter"
-  | "portfolio"
-  | "email"
-  | "discord";
-
-export interface Social {
-  platform: SocialPlatform;
-  url: string;
-  username: string;
-}
-
-export interface SocialsData {
-  socials: Social[];
-}
-
-export interface CustomSection {
-  id: string;
-  title: string;
-  content: string;
-  enabled: boolean;
-}
-
-export interface CustomSectionsData {
-  sections: CustomSection[];
-}
-
-export type LicenseType = "MIT" | "Apache-2.0" | "GPL-3.0" | "BSD-3-Clause" | "Unlicense";
-
-export interface LicenseData {
-  licenseType: LicenseType;
-  copyrightName: string;
-  year: string;
-}
-
-export interface Section {
-  id: string;
-  type: SectionType;
-  title: string;
-  enabled: boolean;
-  data: HeaderData | AboutMeData | TechStackData | ProjectsData | GitHubWidgetsData | SocialsData | LicenseData | CustomSectionsData;
-}
-
-export interface ReadmeConfig {
-  sections: Section[];
-  theme: Theme;
-  username: string;
-}
-
-export interface Template {
-  id: string;
-  name: string;
-  description: string;
-  icon: string;
-  config: ReadmeConfig;
-}
-
-export interface GitHubRepo {
-  name: string;
-  description: string;
-  topics: string[];
-  languages: string[];
-  license: string;
-  homepage: string;
-  stars: number;
-}
-
-export interface ReadmeScore {
+export interface CategoryScore {
+  category: AnalysisCategory;
   score: number;
-  maxScore: number;
-  issues: ReadmeIssue[];
+  grade: Grade;
+  summary: string;
+  passedChecks: Finding[];
+  failedChecks: Finding[];
+  warningChecks: Finding[];
 }
 
-export interface ReadmeIssue {
-  type: "error" | "warning" | "info";
+export interface PerformanceMetrics {
+  fcp?: string;
+  lcp?: string;
+  tbt?: string;
+  cls?: string;
+  speedIndex?: string;
+  tti?: string;
+}
+
+export interface PageMetadata {
+  finalUrl: string;
+  httpStatus: number;
+  title: string;
+  metaDescription: string;
+  canonicalUrl: string;
+  language: string;
+  characterEncoding: string;
+  viewport: string;
+  favicon: string;
+  contentType: string;
+  responseTime: number;
+  htmlSize: number;
+}
+
+export interface TechnicalMetrics {
+  imageCount: number;
+  scriptCount: number;
+  stylesheetCount: number;
+  linkCount: number;
+  internalLinks: number;
+  externalLinks: number;
+  hasRobotsTxt: boolean;
+  hasSitemap: boolean;
+  hasStructuredData: boolean;
+  hasServiceWorker: boolean;
+}
+
+export interface SecurityHeaders {
+  https: boolean;
+  hsts: boolean;
+  contentSecurityPolicy: boolean;
+  xContentTypeOptions: boolean;
+  referrerPolicy: boolean;
+  permissionsPolicy: boolean;
+  xFrameOptions: boolean;
+  mixedContent: boolean;
+}
+
+export interface AIRecommendations {
+  executiveSummary: string;
+  strongestAspects: string[];
+  mostImportantWeaknesses: string[];
+  quickWins: string[];
+  highImpactImprovements: string[];
+  suggestedHeadline: string;
+  suggestedSubheadline: string;
+  suggestedPrimaryCta: string;
+  suggestedMetaDescription: string;
+  contentImprovements: string[];
+  homepageStructure: string[];
+  conversionRecommendations: string[];
+  accessibilityRecommendations: string[];
+}
+
+export interface AnalysisReport {
+  id: string;
+  url: string;
+  title: string;
+  screenshot?: string;
+  mobileScreenshot?: string;
+  analyzedAt: string;
+  overallScore: number;
+  overallGrade: Grade;
+  categoryScores: CategoryScore[];
+  findings: Finding[];
+  metadata: PageMetadata;
+  performanceMetrics: PerformanceMetrics;
+  technicalMetrics: TechnicalMetrics;
+  securityHeaders: SecurityHeaders;
+  aiRecommendations?: AIRecommendations;
+}
+
+export interface AnalysisProgress {
+  stage: string;
   message: string;
-  suggestion: string;
-}
-
-export interface AIRequest {
-  type: "description" | "bio" | "installation" | "features" | "contribution" | "documentation";
-  context: string;
-  prompt: string;
-}
-
-export interface AIResponse {
-  content: string;
+  completed: boolean;
   error?: string;
 }
 
-export type ViewMode = "editor" | "preview" | "split";
+export interface AnalysisState {
+  url: string;
+  progress: AnalysisProgress[];
+  report: AnalysisReport | null;
+  error: string | null;
+  isAnalyzing: boolean;
+}
 
-export interface AppState {
-  config: ReadmeConfig;
-  viewMode: ViewMode;
-  activeSection: string | null;
-  history: ReadmeConfig[];
-  historyIndex: number;
+export interface ReportHistoryEntry {
+  id: string;
+  url: string;
+  title: string;
+  overallScore: number;
+  overallGrade: Grade;
+  screenshot?: string;
+  analyzedAt: string;
+}
+
+export interface AppSettings {
+  theme: Theme;
+  aiProvider: string;
+  aiModel: string;
+  aiEnabled: boolean;
+  reportDetail: "summary" | "detailed";
+  historyEnabled: boolean;
 }

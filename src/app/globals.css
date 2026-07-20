@@ -4,61 +4,65 @@
 
 :root {
   --background: 0 0% 100%;
-  --foreground: 240 10% 3.9%;
+  --foreground: 222 47% 6%;
   --card: 0 0% 100%;
-  --card-foreground: 240 10% 3.9%;
+  --card-foreground: 222 47% 6%;
   --popover: 0 0% 100%;
-  --popover-foreground: 240 10% 3.9%;
-  --primary: 240 5.9% 10%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 240 4.8% 95.9%;
-  --secondary-foreground: 240 5.9% 10%;
-  --muted: 240 4.8% 95.9%;
-  --muted-foreground: 240 3.8% 46.1%;
-  --accent: 240 4.8% 95.9%;
-  --accent-foreground: 240 5.9% 10%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 240 5.9% 90%;
-  --input: 240 5.9% 90%;
-  --ring: 240 5.9% 10%;
+  --popover-foreground: 222 47% 6%;
+  --primary: 239 84% 67%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 14% 96%;
+  --secondary-foreground: 222 47% 6%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 220 9% 46%;
+  --accent: 199 89% 48%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --ring: 239 84% 67%;
   --radius: 0.75rem;
   --success: 142 76% 36%;
-  --success-foreground: 0 0% 98%;
+  --success-foreground: 0 0% 100%;
   --warning: 38 92% 50%;
-  --warning-foreground: 0 0% 98%;
-  --sidebar: 240 4.8% 95.9%;
-  --sidebar-foreground: 240 5.3% 26.1%;
-  --sidebar-border: 240 5.9% 90%;
+  --warning-foreground: 0 0% 100%;
+  --info: 199 89% 48%;
+  --info-foreground: 0 0% 100%;
+  --spectrum-indigo: 239 84% 67%;
+  --spectrum-cyan: 199 89% 48%;
+  --spectrum-violet: 270 76% 58%;
 }
 
 .dark {
-  --background: 240 10% 3.9%;
-  --foreground: 0 0% 98%;
-  --card: 240 10% 3.9%;
-  --card-foreground: 0 0% 98%;
-  --popover: 240 10% 3.9%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 0 0% 98%;
-  --primary-foreground: 240 5.9% 10%;
-  --secondary: 240 3.7% 15.9%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 240 3.7% 15.9%;
-  --muted-foreground: 240 5% 64.9%;
-  --accent: 240 3.7% 15.9%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 240 3.7% 15.9%;
-  --input: 240 3.7% 15.9%;
-  --ring: 240 4.9% 83.9%;
+  --background: 224 71% 4%;
+  --foreground: 213 31% 91%;
+  --card: 224 71% 4%;
+  --card-foreground: 213 31% 91%;
+  --popover: 224 71% 4%;
+  --popover-foreground: 213 31% 91%;
+  --primary: 239 84% 67%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 222 47% 11%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 223 47% 11%;
+  --muted-foreground: 218 11% 65%;
+  --accent: 199 89% 48%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 222 47% 11%;
+  --input: 222 47% 11%;
+  --ring: 239 84% 67%;
   --success: 142 76% 36%;
-  --success-foreground: 0 0% 98%;
+  --success-foreground: 0 0% 100%;
   --warning: 38 92% 50%;
-  --warning-foreground: 0 0% 98%;
-  --sidebar: 240 6% 6%;
-  --sidebar-foreground: 240 5% 85%;
-  --sidebar-border: 240 3.7% 15.9%;
+  --warning-foreground: 0 0% 100%;
+  --info: 199 89% 48%;
+  --info-foreground: 0 0% 100%;
+  --spectrum-indigo: 239 84% 67%;
+  --spectrum-cyan: 199 89% 48%;
+  --spectrum-violet: 270 76% 58%;
 }
 
 @theme inline {
@@ -85,9 +89,11 @@
   --color-success-foreground: hsl(var(--success-foreground));
   --color-warning: hsl(var(--warning));
   --color-warning-foreground: hsl(var(--warning-foreground));
-  --color-sidebar: hsl(var(--sidebar));
-  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
-  --color-sidebar-border: hsl(var(--sidebar-border));
+  --color-info: hsl(var(--info));
+  --color-info-foreground: hsl(var(--info-foreground));
+  --color-spectrum-indigo: hsl(var(--spectrum-indigo));
+  --color-spectrum-cyan: hsl(var(--spectrum-cyan));
+  --color-spectrum-violet: hsl(var(--spectrum-violet));
   --radius: var(--radius);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -123,12 +129,6 @@
 }
 
 @layer utilities {
-  .glass {
-    @apply backdrop-blur-xl bg-white/5 dark:bg-black/5 border border-white/10;
-  }
-  .glass-strong {
-    @apply backdrop-blur-2xl bg-white/10 dark:bg-black/10 border border-white/15;
-  }
   .text-balance {
     text-wrap: balance;
   }
@@ -153,10 +153,9 @@ html {
 }
 
 body {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
-/* Custom selection */
 ::selection {
   background-color: hsl(var(--primary) / 0.2);
 }

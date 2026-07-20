@@ -1,61 +1,41 @@
 "use client";
 
-import React from "react";
-import { Sidebar } from "@/components/layout/sidebar";
-import { TopBar } from "@/components/layout/top-bar";
-import { MobileTabs } from "@/components/layout/mobile-tabs";
-import { CommandPalette } from "@/components/layout/command-palette";
-import { SectionEditor } from "@/components/editor/section-editor";
-import { ReadmePreview } from "@/components/preview/readme-preview";
-import { useReadmeStore } from "@/store/readme-store";
-import { useTheme } from "@/hooks/use-theme";
-import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
+import { Header } from "@/components/layout/header";
+import { Footer } from "@/components/layout/footer";
+import { HeroSection } from "@/components/landing/hero-section";
+import { FeatureGrid } from "@/components/landing/feature-grid";
+import { CategoryGrid } from "@/components/landing/category-grid";
+import { HowItWorks } from "@/components/landing/how-it-works";
+import { UrlForm } from "@/features/url-form/url-form";
 
-export default function Home() {
-  const { viewMode } = useReadmeStore();
-  useTheme();
-  useKeyboardShortcuts();
-
+export default function HomePage() {
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
-      <TopBar />
+    <div className="flex min-h-screen flex-col">
+      <Header />
 
-      <div className="flex flex-1 overflow-hidden">
-        <div className="hidden md:flex">
-          <Sidebar />
-        </div>
+      <main className="flex-1">
+        <HeroSection />
+        <FeatureGrid />
+        <CategoryGrid />
+        <HowItWorks />
 
-        <main className="flex-1 flex overflow-hidden">
-          {viewMode === "editor" && (
-            <div className="w-full overflow-hidden">
-              <SectionEditor />
+        {/* Bottom CTA */}
+        <section className="py-20 sm:py-28">
+          <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Ready to analyze your website?
+            </h2>
+            <p className="mx-auto mt-3 max-w-xl text-muted-foreground">
+              Get actionable insights in seconds. No account required.
+            </p>
+            <div className="mx-auto mt-8 max-w-xl">
+              <UrlForm />
             </div>
-          )}
+          </div>
+        </section>
+      </main>
 
-          {viewMode === "split" && (
-            <>
-              <div className="w-1/2 overflow-hidden border-r border-border">
-                <SectionEditor />
-              </div>
-              <div className="w-1/2 overflow-hidden">
-                <ReadmePreview />
-              </div>
-            </>
-          )}
-
-          {viewMode === "preview" && (
-            <div className="w-full overflow-hidden">
-              <ReadmePreview />
-            </div>
-          )}
-        </main>
-      </div>
-
-      <div className="md:hidden">
-        <MobileTabs />
-      </div>
-
-      <CommandPalette />
+      <Footer />
     </div>
   );
 }
