@@ -1,31 +1,6 @@
 <div align="center">
     
-<svg width="1800" height="520" viewBox="0 0 1800 520" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="bg" x1="34" y1="24" x2="476" y2="496" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#7C3AED"/>
-      <stop offset="0.52" stop-color="#4F46E5"/>
-      <stop offset="1" stop-color="#06B6D4"/>
-    </linearGradient>
-    <linearGradient id="line" x1="145" y1="112" x2="374" y2="405" gradientUnits="userSpaceOnUse">
-      <stop stop-color="white"/>
-      <stop offset="1" stop-color="#E0F2FE"/>
-    </linearGradient>
-  </defs>
-  <rect width="1800" height="520" rx="72" fill="#090E1A"/>
-  <rect x="32" y="32" width="456" height="456" rx="122" fill="url(#bg)"/>
-  <rect x="114" y="100" width="292" height="320" rx="62" fill="#0B1020" fill-opacity="0.86"/>
-  <path d="M154 189V157C154 145.954 162.954 137 174 137H206M314 137H346C357.046 137 366 145.954 366 157V189M366 331V363C366 374.046 357.046 383 346 383H314M206 383H174C162.954 383 154 374.046 154 363V331" stroke="url(#line)" stroke-width="17" stroke-linecap="round"/>
-  <path d="M210 203V300C210 322.091 227.909 340 250 340H281M210 242H270C292.091 242 310 224.091 310 202V199" stroke="url(#line)" stroke-width="19" stroke-linecap="round"/>
-  <circle cx="210" cy="192" r="23" fill="#0B1020" stroke="url(#line)" stroke-width="14"/>
-  <circle cx="310" cy="187" r="23" fill="#0B1020" stroke="url(#line)" stroke-width="14"/>
-  <circle cx="297" cy="340" r="23" fill="#0B1020" stroke="url(#line)" stroke-width="14"/>
-
-  <text x="560" y="260" fill="white" font-family="Inter, Arial, sans-serif" font-size="154" font-weight="760" letter-spacing="-7">Repo<tspan fill="url(#bg)">Canvas</tspan></text>
-  <text x="568" y="338" fill="#9CA3AF" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="500" letter-spacing="1">DESIGN BETTER GITHUB READMES</text>
-</svg>
-
-<img width="1800" height="520" alt="repocanvas-wordmark" src="https://github.com/user-attachments/assets/747bb0fa-0066-4e3f-b974-5f7211c9e613" />
+<img width="1800" height="520" alt="repocanvas-wordmark" src="https://github.com/user-attachments/assets/923751d1-f9fb-4680-9f56-4ba20e599da5" />
 
 ### Premium GitHub README Builder
 
