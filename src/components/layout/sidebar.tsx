@@ -185,8 +185,8 @@ export function Sidebar() {
       <div className="flex items-center justify-between p-4 border-b border-sidebar-border">
         {!collapsed && (
           <div className="flex items-center gap-2">
-            <div className="h-7 w-7 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-xs">RC</span>
+            <div className="h-7 w-7 rounded-lg overflow-hidden flex items-center justify-center">
+              <img src="/icon-512.png" alt="RepoCanvas" className="h-7 w-7" />
             </div>
             <div>
               <h2 className="text-sm font-semibold text-sidebar-foreground">Sections</h2>

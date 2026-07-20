@@ -111,8 +111,8 @@ export function TopBar() {
     <header className="h-14 border-b border-border bg-card/80 backdrop-blur-sm flex items-center justify-between px-4 shrink-0">
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-1.5">
-          <div className="h-7 w-7 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-sm">
-            <span className="text-white font-bold text-[10px]">RC</span>
+          <div className="h-7 w-7 rounded-lg overflow-hidden flex items-center justify-center shadow-sm">
+            <img src="/icon-512.png" alt="RepoCanvas" className="h-7 w-7" />
           </div>
           <div>
             <h1 className="text-sm font-bold tracking-tight">RepoCanvas</h1>
