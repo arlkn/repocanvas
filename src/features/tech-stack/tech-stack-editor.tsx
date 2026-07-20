@@ -4,8 +4,9 @@ import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { TechIcon } from "@/components/ui/tech-icon";
 import { useReadmeStore } from "@/store/readme-store";
-import { TECHNOLOGIES, TECH_CATEGORIES, SKILL_ICONS_BASE } from "@/lib/constants";
+import { TECHNOLOGIES, TECH_CATEGORIES } from "@/lib/constants";
 import type { TechStackData, Technology, TechnologyCategory } from "@/types";
 import { cn } from "@/lib/utils";
 import { Search, X } from "lucide-react";
@@ -54,14 +55,7 @@ export function TechStackEditor() {
                 className="gap-1 pr-1 cursor-pointer hover:bg-destructive/10 hover:text-destructive transition-colors"
                 onClick={() => removeTech(tech.name)}
               >
-                <img
-                  src={`${SKILL_ICONS_BASE}${tech.icon}`}
-                  alt={tech.name}
-                  className="w-4 h-4"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = "none";
-                  }}
-                />
+                <TechIcon name={tech.name} icon={tech.icon} className="w-4 h-4" />
                 {tech.name}
                 <X className="h-3 w-3" />
               </Badge>
@@ -150,14 +144,7 @@ export function TechStackEditor() {
                     : "border-border hover:border-primary/30 text-muted-foreground hover:text-foreground"
                 )}
               >
-                <img
-                  src={`${SKILL_ICONS_BASE}${tech.icon}`}
-                  alt={tech.name}
-                  className="w-5 h-5 shrink-0"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = "none";
-                  }}
-                />
+                <TechIcon name={tech.name} icon={tech.icon} className="w-5 h-5" />
                 {tech.name}
               </button>
             );
