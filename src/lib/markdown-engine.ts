@@ -240,31 +240,38 @@ function generateGitHubWidgetsMarkdown(data: GitHubWidgetsData): string {
   lines.push("## GitHub Stats");
   lines.push("");
 
-  if (data.stats || data.topLanguages) {
+  if (data.topLanguages) {
     lines.push(`<div align="center">\n`);
-    if (data.topLanguages) {
-      lines.push(`![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&show_icons=true&locale=en&layout=compact)`);
-      lines.push("");
-    }
-    if (data.stats) {
-      lines.push(`![GitHub Stats](https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&locale=en)`);
-    }
+    lines.push(`<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${username}&show_icons=true&locale=en&layout=compact&theme=transparent" alt="Top Languages" />`);
+    lines.push(`\n</div>`);
+    lines.push("");
+  }
+
+  if (data.stats) {
+    lines.push(`<div align="center">\n`);
+    lines.push(`<img src="https://github-readme-stats.vercel.app/api?username=${username}&show_icons=true&locale=en&theme=transparent" alt="GitHub Stats" />`);
     lines.push(`\n</div>`);
     lines.push("");
   }
 
   if (data.streak) {
-    lines.push(`![GitHub Streak](https://streak-stats.demolab.com?user=${username})`);
+    lines.push(`<div align="center">\n`);
+    lines.push(`<img src="https://streak-stats.demolab.com?user=${username}&theme=transparent" alt="GitHub Streak" />`);
+    lines.push(`\n</div>`);
     lines.push("");
   }
 
   if (data.activityGraph) {
-    lines.push(`![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=${username})`);
+    lines.push(`<div align="center">\n`);
+    lines.push(`<img src="https://github-readme-activity-graph.vercel.app/graph?username=${username}&theme=github-dark" alt="Activity Graph" width="100%" />`);
+    lines.push(`\n</div>`);
     lines.push("");
   }
 
   if (data.trophies) {
-    lines.push(`<div align="center">\n\n![Trophies](https://github-profile-trophy.vercel.app/?username=${username}&no-frame=true)\n\n</div>`);
+    lines.push(`<div align="center">\n`);
+    lines.push(`<img src="https://github-profile-trophy.vercel.app/?username=${username}&no-frame=true&theme=flat" alt="Trophies" />`);
+    lines.push(`\n</div>`);
     lines.push("");
   }
 
