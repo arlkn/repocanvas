@@ -1,6 +1,6 @@
 <div align="center">
     
-<img width="1800" height="520" alt="repocanvas-wordmark" src="https://github.com/user-attachments/assets/923751d1-f9fb-4680-9f56-4ba20e599da5" />
+<img width="1536" height="1024" alt="ChatGPT Image Jul 21, 2026, 01_15_50 AM" src="https://github.com/user-attachments/assets/58247c7e-7777-4dc7-a507-a791ae97ec2b" />
 
 ### Premium GitHub README Builder
 
