@@ -8,6 +8,8 @@ import type {
   SocialData,
   LicenseData,
   TechItem,
+  TechGroup,
+  Alignment,
 } from "@/types";
 
 export function getTechIconUrl(tech: TechItem): string {
@@ -16,14 +18,21 @@ export function getTechIconUrl(tech: TechItem): string {
 
 function generateHeroMarkdown(data: HeroData, username: string): string {
   const lines: string[] = [];
+  const align = data.alignment || "center";
+
   if (data.tagline) {
-    lines.push(`# ${data.tagline}`);
+    lines.push(`<h1 align="${align}">${data.tagline}</h1>`);
   }
   if (data.subtitle) {
-    lines.push(`> ${data.subtitle}`);
+    lines.push(`<p align="${align}"><em>${data.subtitle}</em></p>`);
   }
   if (data.showBranding && username) {
-    lines.push(`> Built by [${username}](https://github.com/${username})`);
+    lines.push(
+      `<p align="${align}">Built by <a href="https://github.com/${username}">${username}</a></p>`
+    );
+  }
+  if (data.showDivider && lines.length > 0) {
+    lines.push(`<div align="${align}"><hr /></div>`);
   }
   if (lines.length > 0) {
     lines.push("");
@@ -36,37 +45,128 @@ function generateAboutMarkdown(data: AboutData): string {
   return `## About\n\n${data.content}\n`;
 }
 
+function generateTechItemHtml(tech: TechItem, size: number, showLabel: boolean): string {
+  const label = showLabel ? `<br />\n<sub>${tech.name}</sub>` : "";
+  return `<img src="${getTechIconUrl(tech)}" alt="${tech.name}" width="${size}" height="${size}" />${label}`;
+}
+
+function generateTechGroupGrid(
+  group: TechGroup,
+  columns: number,
+  alignment: Alignment,
+  iconSize: number,
+  showLabels: boolean
+): string {
+  if (group.items.length === 0) return "";
+
+  const cellWidth = Math.floor(96 * (iconSize / 40));
+  const rows: string[] = [];
+  let currentRow: string[] = [];
+
+  for (const tech of group.items) {
+    currentRow.push(
+      `<td align="${alignment}" width="${cellWidth}">\n${generateTechItemHtml(tech, iconSize, showLabels)}\n</td>`
+    );
+    if (currentRow.length === columns) {
+      rows.push(`  <tr>\n${currentRow.join("\n")}\n  </tr>`);
+      currentRow = [];
+    }
+  }
+
+  if (currentRow.length > 0) {
+    while (currentRow.length < columns) {
+      currentRow.push(`<td width="${cellWidth}"></td>`);
+    }
+    rows.push(`  <tr>\n${currentRow.join("\n")}\n  </tr>`);
+  }
+
+  return `<table>\n${rows.join("\n")}\n</table>`;
+}
+
+function generateTechGroupIcons(
+  group: TechGroup,
+  iconSize: number,
+  showLabels: boolean
+): string {
+  if (group.items.length === 0) return "";
+
+  if (showLabels) {
+    const items = group.items
+      .map(
+        (t) =>
+          `<img src="${getTechIconUrl(t)}" alt="${t.name}" width="${iconSize}" height="${iconSize}" /> <b>${t.name}</b>`
+      )
+      .join(" | ");
+    return `<div align="center">\n\n${items}\n\n</div>`;
+  }
+
+  const icons = group.items
+    .map(
+      (t) =>
+        `<img src="${getTechIconUrl(t)}" alt="${t.name}" width="${iconSize}" height="${iconSize}" />`
+    )
+    .join(" ");
+  return `<div align="center">\n\n${icons}\n\n</div>`;
+}
+
+function generateTechGroupList(
+  group: TechGroup,
+  iconSize: number
+): string {
+  if (group.items.length === 0) return "";
+
+  const listSize = Math.max(16, Math.floor(iconSize * 0.5));
+  return group.items
+    .map(
+      (t) =>
+        `- <img src="${getTechIconUrl(t)}" alt="${t.name}" width="${listSize}" height="${listSize}" /> ${t.name}`
+    )
+    .join("\n");
+}
+
 function generateTechStackMarkdown(data: TechStackData): string {
-  if (data.items.length === 0) return "";
+  const nonEmptyGroups = data.groups.filter((g) => g.items.length > 0);
+  if (nonEmptyGroups.length === 0) return "";
 
   const lines: string[] = ["## Tech Stack", ""];
 
-  if (data.displayStyle === "icons") {
-    const icons = data.items
-      .map(
-        (t) =>
-          `<img src="${getTechIconUrl(t)}" alt="${t.name}" width="40" height="40" />`
-      )
-      .join(" ");
-    lines.push(
-      `<div align="center">\n\n${icons}\n\n</div>`
-    );
-  } else if (data.displayStyle === "list") {
-    const list = data.items.map((t) => `- <img src="${getTechIconUrl(t)}" alt="${t.name}" width="20" height="20" /> ${t.name}`).join("\n");
-    lines.push(list);
-  } else {
-    const logos = data.items
-      .map(
-        (t) =>
-          `<img src="${getTechIconUrl(t)}" alt="${t.name}" width="40" height="40" /> <b>${t.name}</b>`
-      )
-      .join(" | ");
-    lines.push(
-      `<div align="center">\n\n${logos}\n\n</div>`
-    );
+  for (const group of nonEmptyGroups) {
+    if (nonEmptyGroups.length > 1 || group.title !== "Tech Stack") {
+      lines.push(`### ${group.title}`);
+      lines.push("");
+    }
+
+    switch (data.displayStyle) {
+      case "grid":
+        lines.push(
+          generateTechGroupGrid(
+            group,
+            data.gridColumns,
+            data.gridAlignment,
+            data.iconSize,
+            data.showLabels
+          )
+        );
+        break;
+      case "list":
+        lines.push(generateTechGroupList(group, data.iconSize));
+        break;
+      case "logos":
+        lines.push(
+          generateTechGroupIcons(group, data.iconSize, true)
+        );
+        break;
+      case "icons":
+      default:
+        lines.push(
+          generateTechGroupIcons(group, data.iconSize, data.showLabels)
+        );
+        break;
+    }
+
+    lines.push("");
   }
 
-  lines.push("");
   return lines.join("\n");
 }
 
@@ -74,12 +174,41 @@ function generateFeaturesMarkdown(data: FeaturesData): string {
   if (data.items.length === 0) return "";
 
   const lines: string[] = ["## Features", ""];
-  for (const item of data.items) {
-    lines.push(`### ${item.icon} ${item.title}`);
-    lines.push("");
-    lines.push(item.description);
+
+  if (data.columns === 1) {
+    for (const item of data.items) {
+      lines.push(`### ${item.icon} ${item.title}`);
+      lines.push("");
+      if (data.showDescriptions) {
+        lines.push(item.description);
+        lines.push("");
+      }
+    }
+  } else {
+    lines.push("<table>");
+    let currentRow: string[] = [];
+    for (const item of data.items) {
+      const desc = data.showDescriptions
+        ? `<br />\n<p>${item.description}</p>`
+        : "";
+      currentRow.push(
+        `<td>\n\n### ${item.icon} ${item.title}${desc}\n\n</td>`
+      );
+      if (currentRow.length === data.columns) {
+        lines.push(`  <tr>\n${currentRow.map((c) => `    ${c}`).join("\n")}\n  </tr>`);
+        currentRow = [];
+      }
+    }
+    if (currentRow.length > 0) {
+      while (currentRow.length < data.columns) {
+        currentRow.push("<td></td>");
+      }
+      lines.push(`  <tr>\n${currentRow.map((c) => `    ${c}`).join("\n")}\n  </tr>`);
+    }
+    lines.push("</table>");
     lines.push("");
   }
+
   return lines.join("\n");
 }
 
@@ -135,16 +264,41 @@ function generateGitHubWidgetsMarkdown(
 function generateSocialMarkdown(data: SocialData): string {
   if (data.links.length === 0) return "";
 
-  const lines: string[] = ["## Social", "", "<div align='center'>", ""];
+  const lines: string[] = ["## Social", ""];
+  const align = data.alignment || "center";
 
-  for (const link of data.links) {
-    if (link.url) {
-      lines.push(`[${link.label || link.platform}](${link.url})`);
+  if (data.style === "badges") {
+    lines.push(`<div align="${align}">`);
+    for (const link of data.links) {
+      if (link.url) {
+        lines.push(
+          `[![${link.label}](https://img.shields.io/badge/${encodeURIComponent(link.label)}-blue?style=for-the-badge&logo=${link.platform}&logoColor=white)](${link.url})`
+        );
+      }
     }
+    lines.push("</div>");
+  } else if (data.style === "cards") {
+    lines.push(`<div align="${align}">`);
+    lines.push("");
+    lines.push("| Platform | Link |");
+    lines.push("|----------|------|");
+    for (const link of data.links) {
+      if (link.url) {
+        lines.push(`| ${link.label} | [${link.url}](${link.url}) |`);
+      }
+    }
+    lines.push("");
+    lines.push("</div>");
+  } else {
+    lines.push(`<div align="${align}">`);
+    for (const link of data.links) {
+      if (link.url) {
+        lines.push(`[${link.label}](${link.url})`);
+      }
+    }
+    lines.push("</div>");
   }
 
-  lines.push("");
-  lines.push("</div>");
   lines.push("");
   return lines.join("\n");
 }

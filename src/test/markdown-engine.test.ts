@@ -18,7 +18,7 @@ describe("generateMarkdown", () => {
     expect(generateMarkdown(config)).toContain("Add sections");
   });
 
-  it("generates hero section with tagline", () => {
+  it("generates hero section with alignment", () => {
     const config: ReadmeConfig = {
       username: "test",
       sections: [
@@ -27,14 +27,45 @@ describe("generateMarkdown", () => {
           type: "hero",
           title: "Hero",
           visible: true,
-          data: { tagline: "My Project", subtitle: "A cool tool", showBranding: true },
+          data: {
+            tagline: "My Project",
+            subtitle: "A cool tool",
+            showBranding: true,
+            alignment: "center",
+            showDivider: false,
+          },
         },
       ],
     };
     const md = generateMarkdown(config);
-    expect(md).toContain("# My Project");
-    expect(md).toContain("> A cool tool");
+    expect(md).toContain('align="center"');
+    expect(md).toContain("My Project");
+    expect(md).toContain("A cool tool");
     expect(md).toContain("test");
+  });
+
+  it("generates hero with left alignment and divider", () => {
+    const config: ReadmeConfig = {
+      username: "test",
+      sections: [
+        {
+          id: "1",
+          type: "hero",
+          title: "Hero",
+          visible: true,
+          data: {
+            tagline: "Left",
+            subtitle: "",
+            showBranding: false,
+            alignment: "left",
+            showDivider: true,
+          },
+        },
+      ],
+    };
+    const md = generateMarkdown(config);
+    expect(md).toContain('align="left"');
+    expect(md).toContain("<hr />");
   });
 
   it("generates about section", () => {
@@ -55,7 +86,7 @@ describe("generateMarkdown", () => {
     expect(md).toContain("This is my project.");
   });
 
-  it("generates tech stack with icons display", () => {
+  it("generates tech stack with groups", () => {
     const config: ReadmeConfig = {
       username: "test",
       sections: [
@@ -65,22 +96,40 @@ describe("generateMarkdown", () => {
           title: "Tech Stack",
           visible: true,
           data: {
-            items: [
-              { name: "React", icon: "react" },
-              { name: "TypeScript", icon: "typescript" },
+            groups: [
+              {
+                id: "g1",
+                title: "Frontend",
+                items: [
+                  { name: "React", icon: "react" },
+                  { name: "TypeScript", icon: "typescript" },
+                ],
+              },
+              {
+                id: "g2",
+                title: "Backend",
+                items: [{ name: "Node.js", icon: "nodedotjs" }],
+              },
             ],
             displayStyle: "icons",
+            gridColumns: 4,
+            gridAlignment: "center",
+            showLabels: true,
+            iconSize: 40,
           },
         },
       ],
     };
     const md = generateMarkdown(config);
     expect(md).toContain("## Tech Stack");
+    expect(md).toContain("### Frontend");
+    expect(md).toContain("### Backend");
     expect(md).toContain("cdn.simpleicons.org/react");
     expect(md).toContain("cdn.simpleicons.org/typescript");
+    expect(md).toContain("cdn.simpleicons.org/nodedotjs");
   });
 
-  it("generates tech stack with list display", () => {
+  it("generates tech stack grid layout", () => {
     const config: ReadmeConfig = {
       username: "test",
       sections: [
@@ -90,8 +139,54 @@ describe("generateMarkdown", () => {
           title: "Tech Stack",
           visible: true,
           data: {
-            items: [{ name: "React", icon: "react" }],
+            groups: [
+              {
+                id: "g1",
+                title: "Tech Stack",
+                items: [
+                  { name: "React", icon: "react" },
+                  { name: "TypeScript", icon: "typescript" },
+                ],
+              },
+            ],
+            displayStyle: "grid",
+            gridColumns: 2,
+            gridAlignment: "center",
+            showLabels: true,
+            iconSize: 40,
+          },
+        },
+      ],
+    };
+    const md = generateMarkdown(config);
+    expect(md).toContain("<table>");
+    expect(md).toContain('<td align="center"');
+    expect(md).toContain("React");
+    expect(md).toContain("TypeScript");
+  });
+
+  it("generates tech stack list display", () => {
+    const config: ReadmeConfig = {
+      username: "test",
+      sections: [
+        {
+          id: "1",
+          type: "tech-stack",
+          title: "Tech Stack",
+          visible: true,
+          data: {
+            groups: [
+              {
+                id: "g1",
+                title: "Tech Stack",
+                items: [{ name: "React", icon: "react" }],
+              },
+            ],
             displayStyle: "list",
+            gridColumns: 4,
+            gridAlignment: "center",
+            showLabels: true,
+            iconSize: 40,
           },
         },
       ],
@@ -101,7 +196,7 @@ describe("generateMarkdown", () => {
     expect(md).toContain("React");
   });
 
-  it("generates features section", () => {
+  it("generates features with columns", () => {
     const config: ReadmeConfig = {
       username: "test",
       sections: [
@@ -113,13 +208,18 @@ describe("generateMarkdown", () => {
           data: {
             items: [
               { icon: "⚡", title: "Fast", description: "Blazingly fast" },
+              { icon: "🔒", title: "Secure", description: "Very secure" },
             ],
+            columns: 2,
+            iconSize: "medium",
+            showDescriptions: true,
           },
         },
       ],
     };
     const md = generateMarkdown(config);
     expect(md).toContain("## Features");
+    expect(md).toContain("<table>");
     expect(md).toContain("### ⚡ Fast");
     expect(md).toContain("Blazingly fast");
   });
@@ -150,7 +250,7 @@ describe("generateMarkdown", () => {
     expect(md).not.toContain("top-langs");
   });
 
-  it("generates social links", () => {
+  it("generates social links with badges style", () => {
     const config: ReadmeConfig = {
       username: "test",
       sections: [
@@ -163,13 +263,40 @@ describe("generateMarkdown", () => {
             links: [
               { platform: "twitter", url: "https://x.com/test", label: "Twitter" },
             ],
+            style: "badges",
+            alignment: "center",
           },
         },
       ],
     };
     const md = generateMarkdown(config);
     expect(md).toContain("## Social");
-    expect(md).toContain("[Twitter](https://x.com/test)");
+    expect(md).toContain("shields.io/badge");
+    expect(md).toContain("https://x.com/test");
+  });
+
+  it("generates social links with cards style", () => {
+    const config: ReadmeConfig = {
+      username: "test",
+      sections: [
+        {
+          id: "1",
+          type: "social",
+          title: "Social",
+          visible: true,
+          data: {
+            links: [
+              { platform: "twitter", url: "https://x.com/test", label: "Twitter" },
+            ],
+            style: "cards",
+            alignment: "center",
+          },
+        },
+      ],
+    };
+    const md = generateMarkdown(config);
+    expect(md).toContain("| Platform | Link |");
+    expect(md).toContain("| Twitter |");
   });
 
   it("generates license section", () => {
@@ -201,7 +328,13 @@ describe("generateMarkdown", () => {
           type: "hero",
           title: "Hero",
           visible: false,
-          data: { tagline: "Hidden", subtitle: "", showBranding: false },
+          data: {
+            tagline: "Hidden",
+            subtitle: "",
+            showBranding: false,
+            alignment: "center",
+            showDivider: false,
+          },
         },
       ],
     };
@@ -209,7 +342,7 @@ describe("generateMarkdown", () => {
     expect(md).not.toContain("Hidden");
   });
 
-  it("skips empty sections", () => {
+  it("skips empty groups", () => {
     const config: ReadmeConfig = {
       username: "test",
       sections: [
@@ -218,7 +351,16 @@ describe("generateMarkdown", () => {
           type: "tech-stack",
           title: "Tech Stack",
           visible: true,
-          data: { items: [], displayStyle: "icons" },
+          data: {
+            groups: [
+              { id: "g1", title: "Empty Group", items: [] },
+            ],
+            displayStyle: "icons",
+            gridColumns: 4,
+            gridAlignment: "center",
+            showLabels: true,
+            iconSize: 40,
+          },
         },
       ],
     };

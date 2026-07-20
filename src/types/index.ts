@@ -7,14 +7,24 @@ export type SectionType =
   | "social"
   | "license";
 
-export type DisplayStyle = "icons" | "logos" | "list";
+export type DisplayStyle = "icons" | "logos" | "list" | "grid";
+
+export type Alignment = "left" | "center" | "right";
 
 export type GitHubWidgetTheme = "transparent" | "dark" | "flat";
+
+export type SocialStyle = "links" | "badges" | "cards";
+
+export type FeatureColumns = 1 | 2 | 3;
+
+export type FeatureIconSize = "small" | "medium" | "large";
 
 export interface HeroData {
   tagline: string;
   subtitle: string;
   showBranding: boolean;
+  alignment: Alignment;
+  showDivider: boolean;
 }
 
 export interface AboutData {
@@ -27,9 +37,19 @@ export interface TechItem {
   color?: string;
 }
 
-export interface TechStackData {
+export interface TechGroup {
+  id: string;
+  title: string;
   items: TechItem[];
+}
+
+export interface TechStackData {
+  groups: TechGroup[];
   displayStyle: DisplayStyle;
+  gridColumns: number;
+  gridAlignment: Alignment;
+  showLabels: boolean;
+  iconSize: number;
 }
 
 export interface FeatureItem {
@@ -40,6 +60,9 @@ export interface FeatureItem {
 
 export interface FeaturesData {
   items: FeatureItem[];
+  columns: FeatureColumns;
+  iconSize: FeatureIconSize;
+  showDescriptions: boolean;
 }
 
 export interface GitHubWidgetsData {
@@ -58,6 +81,8 @@ export interface SocialLink {
 
 export interface SocialData {
   links: SocialLink[];
+  style: SocialStyle;
+  alignment: Alignment;
 }
 
 export type LicenseType = "MIT" | "Apache-2.0" | "GPL-3.0" | "BSD-2-Clause" | "Unlicense";

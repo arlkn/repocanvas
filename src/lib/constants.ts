@@ -161,7 +161,13 @@ export const TEMPLATES: Template[] = [
           type: "hero",
           title: "Hero",
           visible: true,
-          data: { tagline: "", subtitle: "", showBranding: true } as HeroData,
+          data: {
+            tagline: "",
+            subtitle: "",
+            showBranding: true,
+            alignment: "center",
+            showDivider: false,
+          } as HeroData,
         },
         {
           id: "about-min",
@@ -185,7 +191,13 @@ export const TEMPLATES: Template[] = [
           type: "hero",
           title: "Hero",
           visible: true,
-          data: { tagline: "", subtitle: "", showBranding: true } as HeroData,
+          data: {
+            tagline: "",
+            subtitle: "",
+            showBranding: true,
+            alignment: "center",
+            showDivider: false,
+          } as HeroData,
         },
         {
           id: "about-dev",
@@ -199,7 +211,14 @@ export const TEMPLATES: Template[] = [
           type: "tech-stack",
           title: "Tech Stack",
           visible: true,
-          data: { items: [], displayStyle: "icons" } as TechStackData,
+          data: {
+            groups: [{ id: "g1", title: "Tech Stack", items: [] }],
+            displayStyle: "icons",
+            gridColumns: 4,
+            gridAlignment: "center",
+            showLabels: true,
+            iconSize: 40,
+          } as TechStackData,
         },
         {
           id: "gh-dev",
@@ -219,7 +238,7 @@ export const TEMPLATES: Template[] = [
           type: "social",
           title: "Social",
           visible: true,
-          data: { links: [] } as SocialData,
+          data: { links: [], style: "links", alignment: "center" } as SocialData,
         },
         {
           id: "license-dev",
@@ -247,7 +266,13 @@ export const TEMPLATES: Template[] = [
           type: "hero",
           title: "Hero",
           visible: true,
-          data: { tagline: "", subtitle: "", showBranding: true } as HeroData,
+          data: {
+            tagline: "",
+            subtitle: "",
+            showBranding: true,
+            alignment: "center",
+            showDivider: true,
+          } as HeroData,
         },
         {
           id: "about-show",
@@ -261,14 +286,26 @@ export const TEMPLATES: Template[] = [
           type: "features",
           title: "Features",
           visible: true,
-          data: { items: [] } as FeaturesData,
+          data: {
+            items: [],
+            columns: 2,
+            iconSize: "medium",
+            showDescriptions: true,
+          } as FeaturesData,
         },
         {
           id: "tech-show",
           type: "tech-stack",
           title: "Tech Stack",
           visible: true,
-          data: { items: [], displayStyle: "logos" } as TechStackData,
+          data: {
+            groups: [{ id: "g1", title: "Tech Stack", items: [] }],
+            displayStyle: "grid",
+            gridColumns: 4,
+            gridAlignment: "center",
+            showLabels: true,
+            iconSize: 40,
+          } as TechStackData,
         },
         {
           id: "gh-show",
@@ -309,7 +346,13 @@ export const TEMPLATES: Template[] = [
           type: "hero",
           title: "Hero",
           visible: true,
-          data: { tagline: "", subtitle: "", showBranding: true } as HeroData,
+          data: {
+            tagline: "",
+            subtitle: "",
+            showBranding: true,
+            alignment: "left",
+            showDivider: false,
+          } as HeroData,
         },
         {
           id: "about-cre",
@@ -323,21 +366,36 @@ export const TEMPLATES: Template[] = [
           type: "features",
           title: "Features",
           visible: true,
-          data: { items: [] } as FeaturesData,
+          data: {
+            items: [],
+            columns: 1,
+            iconSize: "large",
+            showDescriptions: true,
+          } as FeaturesData,
         },
         {
           id: "tech-cre",
           type: "tech-stack",
           title: "Tech Stack",
           visible: true,
-          data: { items: [], displayStyle: "list" } as TechStackData,
+          data: {
+            groups: [
+              { id: "g1", title: "Frontend", items: [] },
+              { id: "g2", title: "Design", items: [] },
+            ],
+            displayStyle: "list",
+            gridColumns: 4,
+            gridAlignment: "center",
+            showLabels: true,
+            iconSize: 24,
+          } as TechStackData,
         },
         {
           id: "social-cre",
           type: "social",
           title: "Social",
           visible: true,
-          data: { links: [] } as SocialData,
+          data: { links: [], style: "badges", alignment: "center" } as SocialData,
         },
       ],
     },
@@ -354,7 +412,13 @@ export const TEMPLATES: Template[] = [
           type: "hero",
           title: "Hero",
           visible: true,
-          data: { tagline: "", subtitle: "", showBranding: true } as HeroData,
+          data: {
+            tagline: "",
+            subtitle: "",
+            showBranding: true,
+            alignment: "center",
+            showDivider: true,
+          } as HeroData,
         },
         {
           id: "about-org",
@@ -368,7 +432,12 @@ export const TEMPLATES: Template[] = [
           type: "features",
           title: "Features",
           visible: true,
-          data: { items: [] } as FeaturesData,
+          data: {
+            items: [],
+            columns: 3,
+            iconSize: "medium",
+            showDescriptions: true,
+          } as FeaturesData,
         },
         {
           id: "gh-org",
@@ -388,7 +457,7 @@ export const TEMPLATES: Template[] = [
           type: "social",
           title: "Social",
           visible: true,
-          data: { links: [] } as SocialData,
+          data: { links: [], style: "cards", alignment: "center" } as SocialData,
         },
         {
           id: "license-org",
@@ -426,7 +495,13 @@ export function createDefaultSection(type: SectionType): import("@/types").Secti
         type,
         title: SECTION_TYPES.hero.label,
         visible: true,
-        data: { tagline: "", subtitle: "", showBranding: true } as HeroData,
+        data: {
+          tagline: "",
+          subtitle: "",
+          showBranding: true,
+          alignment: "center",
+          showDivider: false,
+        } as HeroData,
       };
     case "about":
       return {
@@ -442,7 +517,14 @@ export function createDefaultSection(type: SectionType): import("@/types").Secti
         type,
         title: SECTION_TYPES["tech-stack"].label,
         visible: true,
-        data: { items: [], displayStyle: "icons" } as TechStackData,
+        data: {
+          groups: [{ id: `g-${id}`, title: "Tech Stack", items: [] }],
+          displayStyle: "icons",
+          gridColumns: 4,
+          gridAlignment: "center",
+          showLabels: true,
+          iconSize: 40,
+        } as TechStackData,
       };
     case "features":
       return {
@@ -450,7 +532,12 @@ export function createDefaultSection(type: SectionType): import("@/types").Secti
         type,
         title: SECTION_TYPES.features.label,
         visible: true,
-        data: { items: [] } as FeaturesData,
+        data: {
+          items: [],
+          columns: 2,
+          iconSize: "medium",
+          showDescriptions: true,
+        } as FeaturesData,
       };
     case "github-widgets":
       return {
@@ -472,7 +559,7 @@ export function createDefaultSection(type: SectionType): import("@/types").Secti
         type,
         title: SECTION_TYPES.social.label,
         visible: true,
-        data: { links: [] } as SocialData,
+        data: { links: [], style: "links", alignment: "center" } as SocialData,
       };
     case "license":
       return {

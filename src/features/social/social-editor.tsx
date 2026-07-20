@@ -1,10 +1,17 @@
 "use client";
 
 import { useReadmeStore } from "@/store/readme-store";
-import type { Section, SocialData, SocialLink } from "@/types";
+import type { Section, SocialData, SocialLink, SocialStyle, Alignment } from "@/types";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Plus, Trash2 } from "lucide-react";
 
 interface SocialEditorProps {
@@ -49,6 +56,58 @@ export function SocialEditor({ section }: SocialEditorProps) {
 
   return (
     <div className="space-y-4">
+      {/* Style Settings */}
+      <div className="space-y-3 rounded-lg border border-border p-3">
+        <Label className="text-xs font-medium uppercase text-muted-foreground">
+          Style
+        </Label>
+
+        <div className="space-y-2">
+          <Label className="text-xs">Display Style</Label>
+          <Select
+            value={data.style}
+            onValueChange={(v) =>
+              updateSectionData(section.id, {
+                ...data,
+                style: v as SocialStyle,
+              })
+            }
+          >
+            <SelectTrigger className="h-8">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="links">Text Links</SelectItem>
+              <SelectItem value="badges">Badge Buttons</SelectItem>
+              <SelectItem value="cards">Card Table</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div className="space-y-2">
+          <Label className="text-xs">Alignment</Label>
+          <Select
+            value={data.alignment}
+            onValueChange={(v) =>
+              updateSectionData(section.id, {
+                ...data,
+                alignment: v as Alignment,
+              })
+            }
+          >
+            <SelectTrigger className="h-8">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="left">Left</SelectItem>
+              <SelectItem value="center">Center</SelectItem>
+              <SelectItem value="right">Right</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      {/* Links */}
       {data.links.map((link, index) => (
         <div
           key={index}
