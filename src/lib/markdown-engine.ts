@@ -10,10 +10,10 @@ import type {
   LicenseData,
   CustomSectionsData,
 } from "@/types";
-import { getTechBadgeUrl } from "./constants";
+import { SKILL_ICONS_BASE } from "./constants";
 
-function getTechIconUrl(name: string, icon: string): string {
-  return getTechBadgeUrl(name, icon);
+function getTechIconUrl(icon: string): string {
+  return `${SKILL_ICONS_BASE}${icon}`;
 }
 
 function generateHeaderMarkdown(data: HeaderData): string {
@@ -131,7 +131,7 @@ function generateTechStackMarkdown(data: TechStackData): string {
     lines.push(`<div align="center">`);
     lines.push("");
     data.selectedTech.forEach((tech) => {
-      lines.push(`<img src="${getTechIconUrl(tech.name, tech.icon)}" alt="${tech.name}" width="50" height="50"/>`);
+      lines.push(`<img src="${getTechIconUrl(tech.icon)}" alt="${tech.name}" width="50" height="50"/>`);
     });
     lines.push("");
     lines.push(`</div>`);
@@ -139,7 +139,7 @@ function generateTechStackMarkdown(data: TechStackData): string {
     lines.push(`<div align="center">`);
     lines.push("");
     data.selectedTech.forEach((tech) => {
-      lines.push(`<img src="${getTechIconUrl(tech.name, tech.icon)}" alt="${tech.name}" width="50" height="50"/>`);
+      lines.push(`<img src="${getTechIconUrl(tech.icon)}" alt="${tech.name}" width="50" height="50"/>`);
     });
     lines.push("");
     lines.push(`</div>`);
@@ -147,7 +147,7 @@ function generateTechStackMarkdown(data: TechStackData): string {
     lines.push(`<div align="center">`);
     lines.push("");
     data.selectedTech.forEach((tech) => {
-      lines.push(`<img src="${getTechIconUrl(tech.name, tech.icon)}" alt="${tech.name}" width="25" height="25"/> <strong>${tech.name}</strong>`);
+      lines.push(`<img src="${getTechIconUrl(tech.icon)}" alt="${tech.name}" width="25" height="25"/> <strong>${tech.name}</strong>`);
     });
     lines.push("");
     lines.push(`</div>`);
