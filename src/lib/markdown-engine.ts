@@ -11,48 +11,8 @@ import type {
 } from "@/types";
 import { SKILL_ICONS_BASE } from "./constants";
 
-function getTechIconUrl(techName: string): string {
-  const iconMap: Record<string, string> = {
-    javascript: "js",
-    typescript: "ts",
-    python: "python",
-    swift: "swift",
-    go: "go",
-    rust: "rust",
-    java: "java",
-    "c#": "cs",
-    react: "react",
-    "next.js": "nextjs",
-    vue: "vuejs",
-    angular: "angular",
-    tailwind: "tailwindcss",
-    html: "html5",
-    css: "css3",
-    "node.js": "nodedotjs",
-    express: "express",
-    nestjs: "nestjs",
-    django: "django",
-    laravel: "laravel",
-    postgresql: "postgresql",
-    mongodb: "mongodb",
-    redis: "redis",
-    sqlite: "sqlite",
-    docker: "docker",
-    kubernetes: "kubernetes",
-    aws: "amazonwebservices",
-    cloudflare: "cloudflare",
-    vercel: "vercel",
-    git: "git",
-    github: "github",
-    zed: "zed",
-    "vs code": "vscode",
-    figma: "figma",
-    canva: "canva",
-    gimp: "gimp",
-  };
-
-  const iconKey = iconMap[techName.toLowerCase()] || techName.toLowerCase().replace(/[^a-z0-9]/g, "");
-  return `${SKILL_ICONS_BASE}${iconKey}`;
+function getTechIconUrl(icon: string): string {
+  return `${SKILL_ICONS_BASE}${icon}`;
 }
 
 function generateHeaderMarkdown(data: HeaderData): string {
@@ -167,20 +127,29 @@ function generateTechStackMarkdown(data: TechStackData): string {
   }
 
   if (data.displayStyle === "badges") {
-    const icons = data.selectedTech
-      .map((tech) => `<img src="${getTechIconUrl(tech.name)}" alt="${tech.name}" width="50" height="50"/>`)
-      .join("\n");
-    lines.push(`<div align="center">\n\n${icons}\n\n</div>`);
+    lines.push(`<div align="center">`);
+    lines.push("");
+    data.selectedTech.forEach((tech) => {
+      lines.push(`<img src="${getTechIconUrl(tech.icon)}" alt="${tech.name}" width="50" height="50"/>`);
+    });
+    lines.push("");
+    lines.push(`</div>`);
   } else if (data.displayStyle === "grid") {
-    lines.push(`<div align="center">\n`);
+    lines.push(`<div align="center">`);
+    lines.push("");
     data.selectedTech.forEach((tech) => {
-      lines.push(`![${tech.name}](${getTechIconUrl(tech.name)})`);
+      lines.push(`<img src="${getTechIconUrl(tech.icon)}" alt="${tech.name}" width="50" height="50"/>`);
     });
-    lines.push(`\n</div>`);
+    lines.push("");
+    lines.push(`</div>`);
   } else {
+    lines.push(`<div align="center">`);
+    lines.push("");
     data.selectedTech.forEach((tech) => {
-      lines.push(`- ${tech.name}`);
+      lines.push(`<img src="${getTechIconUrl(tech.icon)}" alt="${tech.name}" width="25" height="25"/> <strong>${tech.name}</strong>`);
     });
+    lines.push("");
+    lines.push(`</div>`);
   }
 
   lines.push("");
@@ -386,12 +355,7 @@ export function generateMarkdown(config: ReadmeConfig): string {
     .map((section) => generateSectionMarkdown(section))
     .filter((part) => part.length > 0);
 
-  let markdown = parts.join("\n");
-
-  if (config.username) {
-    const statsLine = `\n\n<p align="center"><img src="https://github-readme-stats.vercel.app/api?username=${config.username}&show_icons=true&theme=transparent" alt="${config.username}" /></p>`;
-    markdown += statsLine;
-  }
+  const markdown = parts.join("\n");
 
   return markdown.trim() + "\n";
 }
