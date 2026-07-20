@@ -15,7 +15,8 @@ import { ScorePanel } from "@/components/editor/score-panel";
 import { ImportExportPanel } from "@/components/editor/import-export-panel";
 import { AIAssistant } from "@/features/ai/ai-assistant";
 import { GitHubImportModal } from "@/features/github/github-import-modal";
-import { User, Heart, Code, FolderOpen, BarChart3, Share2, FileText, Sparkles, BarChart, ArrowDownUp, Wand2 } from "lucide-react";
+import { LicenseEditor } from "@/features/license/license-editor";
+import { User, Heart, Code, FolderOpen, BarChart3, Share2, FileText, Scale, Sparkles, BarChart, ArrowDownUp, Wand2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const SECTION_EDITORS: Record<string, React.ComponentType> = {
@@ -25,6 +26,7 @@ const SECTION_EDITORS: Record<string, React.ComponentType> = {
   projects: ProjectsEditor,
   "github-widgets": GitHubWidgetsEditor,
   socials: SocialsEditor,
+  license: LicenseEditor,
   custom: CustomSectionsEditor,
 };
 
@@ -35,6 +37,7 @@ const SECTION_ICONS: Record<string, React.ElementType> = {
   projects: FolderOpen,
   "github-widgets": BarChart3,
   socials: Share2,
+  license: Scale,
   custom: FileText,
 };
 

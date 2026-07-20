@@ -7,6 +7,7 @@ export type SectionType =
   | "projects"
   | "github-widgets"
   | "socials"
+  | "license"
   | "custom";
 
 export interface HeaderData {
@@ -102,12 +103,20 @@ export interface CustomSectionsData {
   sections: CustomSection[];
 }
 
+export type LicenseType = "MIT" | "Apache-2.0" | "GPL-3.0" | "BSD-3-Clause" | "Unlicense";
+
+export interface LicenseData {
+  licenseType: LicenseType;
+  copyrightName: string;
+  year: string;
+}
+
 export interface Section {
   id: string;
   type: SectionType;
   title: string;
   enabled: boolean;
-  data: HeaderData | AboutMeData | TechStackData | ProjectsData | GitHubWidgetsData | SocialsData | CustomSectionsData;
+  data: HeaderData | AboutMeData | TechStackData | ProjectsData | GitHubWidgetsData | SocialsData | LicenseData | CustomSectionsData;
 }
 
 export interface ReadmeConfig {

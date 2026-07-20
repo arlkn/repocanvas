@@ -9,6 +9,7 @@ import type {
   ProjectsData,
   GitHubWidgetsData,
   SocialsData,
+  LicenseData,
   CustomSectionsData,
   Section,
 } from "@/types";
@@ -167,6 +168,14 @@ function createDefaultCustomSections(): CustomSectionsData {
   return { sections: [] };
 }
 
+function createDefaultLicense(): LicenseData {
+  return {
+    licenseType: "MIT",
+    copyrightName: "",
+    year: new Date().getFullYear().toString(),
+  };
+}
+
 export function createDefaultSection(type: Section["type"]): Section {
   const defaults: Record<Section["type"], () => Section> = {
     header: () => ({
@@ -211,6 +220,13 @@ export function createDefaultSection(type: Section["type"]): Section {
       enabled: true,
       data: createDefaultSocials(),
     }),
+    license: () => ({
+      id: "license",
+      type: "license",
+      title: "License",
+      enabled: true,
+      data: createDefaultLicense(),
+    }),
     custom: () => ({
       id: `custom-${Date.now()}`,
       type: "custom",
@@ -231,6 +247,7 @@ export function createDefaultConfig(): ReadmeConfig {
       createDefaultSection("projects"),
       createDefaultSection("github-widgets"),
       createDefaultSection("socials"),
+      createDefaultSection("license"),
       createDefaultSection("custom"),
     ],
     theme: "dark",
@@ -412,6 +429,7 @@ export const SECTION_ICONS: Record<Section["type"], string> = {
   projects: "FolderOpen",
   "github-widgets": "BarChart3",
   socials: "Share2",
+  license: "Scale",
   custom: "FileText",
 };
 

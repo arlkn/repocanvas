@@ -9,6 +9,7 @@ import {
   BarChart3,
   Share2,
   FileText,
+  Scale,
   Plus,
   ChevronLeft,
   ChevronRight,
@@ -32,6 +33,7 @@ const SECTION_ICONS: Record<Section["type"], React.ElementType> = {
   projects: FolderOpen,
   "github-widgets": BarChart3,
   socials: Share2,
+  license: Scale,
   custom: FileText,
 };
 
@@ -170,6 +172,7 @@ export function Sidebar() {
     { type: "projects", label: "Projects" },
     { type: "github-widgets", label: "GitHub Widgets" },
     { type: "socials", label: "Socials" },
+    { type: "license", label: "License" },
     { type: "custom", label: "Custom Section" },
   ];
 

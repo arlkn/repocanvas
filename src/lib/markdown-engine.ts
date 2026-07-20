@@ -7,6 +7,7 @@ import type {
   ProjectsData,
   GitHubWidgetsData,
   SocialsData,
+  LicenseData,
   CustomSectionsData,
 } from "@/types";
 import { SKILL_ICONS_BASE } from "./constants";
@@ -278,6 +279,36 @@ function generateGitHubWidgetsMarkdown(data: GitHubWidgetsData): string {
   return lines.join("\n");
 }
 
+function generateLicenseMarkdown(data: LicenseData, config: ReadmeConfig): string {
+  const lines: string[] = [];
+  const copyrightName = data.copyrightName || config.username || "Your Name";
+  const year = data.year || new Date().getFullYear().toString();
+
+  const licenseBadges: Record<string, { label: string; color: string; link: string }> = {
+    MIT: { label: "MIT License", color: "FFCA28", link: "https://opensource.org/licenses/MIT" },
+    "Apache-2.0": { label: "Apache 2.0", color: "2196F3", link: "https://opensource.org/licenses/Apache-2.0" },
+    "GPL-3.0": { label: "GPL v3", color: "4285F4", link: "https://www.gnu.org/licenses/gpl-3.0" },
+    "BSD-3-Clause": { label: "BSD 3-Clause", color: "FF6B35", link: "https://opensource.org/licenses/BSD-3-Clause" },
+    Unlicense: { label: "Unlicense", color: "9E9E9E", link: "https://unlicense.org/" },
+  };
+
+  const license = licenseBadges[data.licenseType] || licenseBadges.MIT;
+
+  lines.push("## License");
+  lines.push("");
+  lines.push(`<div align="center">`);
+  lines.push("");
+  lines.push(`[![${license.label}](https://img.shields.io/badge/${encodeURIComponent(license.label)}-${license.color}?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](${license.link})`);
+  lines.push("");
+  lines.push(`Distributed under the **${license.label}**. See [${license.link}](${license.link}) for more information.`);
+  lines.push("");
+  lines.push(`Copyright © ${year} **${copyrightName}**`);
+  lines.push("");
+  lines.push(`</div>`);
+
+  return lines.join("\n");
+}
+
 function generateSocialsMarkdown(data: SocialsData): string {
   const lines: string[] = [];
 
@@ -334,7 +365,7 @@ function generateCustomSectionMarkdown(section: Section): string {
   return lines.join("\n");
 }
 
-function generateSectionMarkdown(section: Section): string {
+function generateSectionMarkdown(section: Section, config: ReadmeConfig): string {
   if (!section.enabled) return "";
 
   switch (section.type) {
@@ -350,6 +381,8 @@ function generateSectionMarkdown(section: Section): string {
       return generateGitHubWidgetsMarkdown(section.data as GitHubWidgetsData);
     case "socials":
       return generateSocialsMarkdown(section.data as SocialsData);
+    case "license":
+      return generateLicenseMarkdown(section.data as LicenseData, config);
     case "custom":
       return generateCustomSectionMarkdown(section);
     default:
@@ -359,7 +392,7 @@ function generateSectionMarkdown(section: Section): string {
 
 export function generateMarkdown(config: ReadmeConfig): string {
   const parts = config.sections
-    .map((section) => generateSectionMarkdown(section))
+    .map((section) => generateSectionMarkdown(section, config))
     .filter((part) => part.length > 0);
 
   const markdown = parts.join("\n");
