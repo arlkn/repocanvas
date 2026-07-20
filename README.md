@@ -28,14 +28,14 @@ RepoCanvas is a premium developer tool that helps you create stunning GitHub REA
 
 - **Visual Editor** — Sidebar, editor, and live preview layout
 - **Real-time Preview** — See your README as you build it
-- **Drag & Drop** — Reorder sections with drag and drop
-- **7 Templates** — Minimal, Student, Full Stack, AI Engineer, Open Source, macOS Developer, and an Aral's Example template
+- **Drag & Drop** — Reorder sections with up/down controls
+- **6 Templates** — Minimal, Student, Full Stack, AI Engineer, Open Source, macOS Developer
 
 ### Sections
 
 - **Header** — Name, title, bio, typing animation, banner, avatar, alignment
 - **About Me** — Biography, current work, learning, fun facts, contact
-- **Tech Stack** — 36+ searchable technologies with icons (Skill Icons / Simple Icons)
+- **Tech Stack** — 79 searchable technologies with icons (Skill Icons)
 - **Projects** — Multiple projects with images, links, technologies, and status badges
 - **GitHub Widgets** — Stats, streak, activity graph, top languages, trophies
 - **Socials** — GitHub, LinkedIn, X, portfolio, email, Discord
@@ -86,6 +86,8 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+> **Note:** If you see outdated data, clear your browser's Local Storage key `repocanvas-config` and refresh.
+
 ### Commands
 
 | Command | Description |
@@ -107,7 +109,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | State | Zustand |
 | Icons | Lucide React |
 | Animation | Framer Motion |
-| DnD | dnd-kit |
 | Markdown | react-markdown, remark-gfm, rehype-raw |
 | Forms | React Hook Form, Zod |
 | Testing | Vitest, React Testing Library |
