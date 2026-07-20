@@ -1,6 +1,6 @@
 <div align="center">
 
-# RepoCanvas
+<img width="1800" height="520" alt="repocanvas-wordmark" src="https://github.com/user-attachments/assets/40c625b3-8ff6-4d1d-8209-d0ea7d17434c" />
 
 ### Premium GitHub README Builder
 
