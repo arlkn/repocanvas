@@ -51,13 +51,15 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
     s.title.toLowerCase().includes(query.toLowerCase())
   );
 
+  const existingTypes = new Set(config.sections.map((s) => s.type));
   const filteredTypes = (Object.entries(SECTION_TYPES) as [
     SectionType,
     (typeof SECTION_TYPES)[SectionType],
   ][]).filter(
-    ([, meta]) =>
-      meta.label.toLowerCase().includes(query.toLowerCase()) ||
-      meta.description.toLowerCase().includes(query.toLowerCase())
+    ([type, meta]) =>
+      !existingTypes.has(type) &&
+      (meta.label.toLowerCase().includes(query.toLowerCase()) ||
+        meta.description.toLowerCase().includes(query.toLowerCase()))
   );
 
   return (

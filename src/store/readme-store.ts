@@ -39,6 +39,7 @@ export const useReadmeStore = create<ReadmeStore>()(
 
       addSection: (type) =>
         set((state) => {
+          if (state.config.sections.some((s) => s.type === type)) return state;
           const section = createDefaultSection(type);
           return {
             config: {

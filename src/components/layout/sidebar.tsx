@@ -41,13 +41,14 @@ export function Sidebar() {
     toggleSectionVisibility,
   } = useReadmeStore();
 
-  const sectionTypes = Object.entries(SECTION_TYPES) as [
+  const existingTypes = new Set(config.sections.map((s) => s.type));
+  const availableTypes = (Object.entries(SECTION_TYPES) as [
     SectionType,
     (typeof SECTION_TYPES)[SectionType],
-  ][];
+  ][]).filter(([type]) => !existingTypes.has(type));
 
   return (
-    <aside className="hidden w-[280px] flex-col border-r border-border bg-card lg:flex">
+    <aside className="flex w-[280px] shrink-0 flex-col border-r border-border bg-card">
       {/* Brand */}
       <div className="flex items-center gap-2 border-b border-border px-4 py-3">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
@@ -141,28 +142,30 @@ export function Sidebar() {
       </ScrollArea>
 
       {/* Add Section */}
-      <div className="border-t border-border p-3">
-        <div className="mb-2 text-xs font-medium uppercase text-muted-foreground">
-          Add Section
+      {availableTypes.length > 0 && (
+        <div className="border-t border-border p-3">
+          <div className="mb-2 text-xs font-medium uppercase text-muted-foreground">
+            Add Section
+          </div>
+          <div className="grid grid-cols-2 gap-1.5">
+            {availableTypes.map(([type, meta]) => {
+              const Icon = ICON_MAP[meta.icon] ?? FileText;
+              return (
+                <Button
+                  key={type}
+                  variant="ghost"
+                  size="sm"
+                  className="justify-start gap-2 text-xs h-8"
+                  onClick={() => addSection(type)}
+                >
+                  <Icon className="h-3 w-3" />
+                  {meta.label}
+                </Button>
+              );
+            })}
+          </div>
         </div>
-        <div className="grid grid-cols-2 gap-1.5">
-          {sectionTypes.map(([type, meta]) => {
-            const Icon = ICON_MAP[meta.icon] ?? FileText;
-            return (
-              <Button
-                key={type}
-                variant="ghost"
-                size="sm"
-                className="justify-start gap-2 text-xs h-8"
-                onClick={() => addSection(type)}
-              >
-                <Icon className="h-3 w-3" />
-                {meta.label}
-              </Button>
-            );
-          })}
-        </div>
-      </div>
+      )}
     </aside>
   );
 }
