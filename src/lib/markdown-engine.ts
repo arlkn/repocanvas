@@ -6,6 +6,10 @@ import type {
   FeaturesData,
   GitHubWidgetsData,
   SocialData,
+  VisitorCounterData,
+  TrophiesData,
+  SupportData,
+  FunComponentsData,
   TechItem,
   TechGroup,
   Alignment,
@@ -302,6 +306,104 @@ function generateSocialMarkdown(data: SocialData): string {
   return lines.join("\n");
 }
 
+function generateVisitorCounterMarkdown(data: VisitorCounterData, username: string): string {
+  if (!username) return "";
+  const align = data.alignment || "center";
+  return `## Visitors
+
+<div align="${align}">
+
+![Visitor Count](https://komarev.com/ghpvc/?username=${username}&color=blueviolet&style=for-the-badge)
+
+</div>
+`;
+}
+
+function generateTrophiesMarkdown(data: TrophiesData, username: string): string {
+  if (!username) return "";
+  const align = data.alignment || "center";
+  const rankParam = data.showRank ? "&show_rank=true" : "";
+  return `## Trophies
+
+<div align="${align}">
+
+[![GitHub Trophies](https://github-readme-trophies.vercel.app/?username=${username}&theme=${data.theme}${rankParam})](https://github.com/ryo-ma/github-profile-trophy)
+
+</div>
+`;
+}
+
+function generateSupportMarkdown(data: SupportData): string {
+  if (data.links.length === 0) return "";
+
+  const lines: string[] = ["## Support", ""];
+  const align = data.alignment || "center";
+
+  if (data.style === "badges") {
+    lines.push(`<div align="${align}">`);
+    for (const link of data.links) {
+      if (link.url) {
+        lines.push(
+          `[![${link.label}](https://img.shields.io/badge/${encodeURIComponent(link.label)}-green?style=for-the-badge&logo=ko-fi&logoColor=white)](${link.url})`
+        );
+      }
+    }
+    lines.push("</div>");
+  } else if (data.style === "cards") {
+    lines.push(`<div align="${align}">`);
+    lines.push("");
+    lines.push("| Platform | Link |");
+    lines.push("|----------|------|");
+    for (const link of data.links) {
+      if (link.url) {
+        lines.push(`| ${link.label} | [${link.url}](${link.url}) |`);
+      }
+    }
+    lines.push("");
+    lines.push("</div>");
+  } else {
+    lines.push(`<div align="${align}">`);
+    for (const link of data.links) {
+      if (link.url) {
+        lines.push(`[${link.label}](${link.url})`);
+      }
+    }
+    lines.push("</div>");
+  }
+
+  lines.push("");
+  return lines.join("\n");
+}
+
+function generateFunComponentsMarkdown(data: FunComponentsData): string {
+  const lines: string[] = ["## Fun", ""];
+  const align = data.alignment || "center";
+
+  if (data.contentType === "memes" || data.contentType === "both") {
+    lines.push(`### Random Meme`);
+    lines.push("");
+    lines.push(`<div align="${align}">`);
+    lines.push("");
+    lines.push(`<img src="https://api.memegen.link/images/buzz/memes/how_github_profiles/be_like.jpg" alt="Random Meme" />`);
+    lines.push("");
+    lines.push("</div>");
+    lines.push("");
+  }
+
+  if (data.contentType === "quotes" || data.contentType === "both") {
+    lines.push(`### Random Quote`);
+    lines.push("");
+    lines.push(`<div align="${align}">`);
+    lines.push("");
+    lines.push(`<img src="https://quotes-github-readme.vercel.app/api?type=horizontal&theme=dark" alt="Random Quote" />`);
+    lines.push("");
+    lines.push("</div>");
+    lines.push("");
+  }
+
+  return lines.join("\n");
+}
+
 export function generateMarkdown(config: ReadmeConfig): string {
   const visibleSections = config.sections.filter((s) => s.visible);
 
@@ -335,6 +437,18 @@ export function generateMarkdown(config: ReadmeConfig): string {
         break;
       case "social":
         parts.push(generateSocialMarkdown(section.data as SocialData));
+        break;
+      case "visitor-counter":
+        parts.push(generateVisitorCounterMarkdown(section.data as VisitorCounterData, config.username));
+        break;
+      case "trophies":
+        parts.push(generateTrophiesMarkdown(section.data as TrophiesData, config.username));
+        break;
+      case "support":
+        parts.push(generateSupportMarkdown(section.data as SupportData));
+        break;
+      case "fun-components":
+        parts.push(generateFunComponentsMarkdown(section.data as FunComponentsData));
         break;
     }
   }

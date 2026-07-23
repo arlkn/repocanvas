@@ -6,6 +6,7 @@ import { generateMarkdown } from "@/lib/markdown-engine";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 export function ReadmePreview() {
   const config = useReadmeStore((s) => s.config);
@@ -22,7 +23,7 @@ export function ReadmePreview() {
 
       <ScrollArea className="flex-1">
         <div className="prose prose-invert max-w-none p-6">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
             {markdown}
           </ReactMarkdown>
         </div>

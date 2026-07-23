@@ -4,7 +4,11 @@ export type SectionType =
   | "tech-stack"
   | "features"
   | "github-widgets"
-  | "social";
+  | "social"
+  | "visitor-counter"
+  | "trophies"
+  | "support"
+  | "fun-components";
 
 export type DisplayStyle = "icons" | "logos" | "list" | "grid";
 
@@ -84,13 +88,48 @@ export interface SocialData {
   alignment: Alignment;
 }
 
+export interface VisitorCounterData {
+  alignment: Alignment;
+}
+
+export type TrophyTheme = "default" | "radical" | "tokyonight" | "merko" | "gruvbox" | "walnut";
+
+export interface TrophiesData {
+  theme: TrophyTheme;
+  alignment: Alignment;
+  showRank: boolean;
+}
+
+export interface SupportLink {
+  platform: string;
+  url: string;
+  label: string;
+}
+
+export interface SupportData {
+  links: SupportLink[];
+  style: SocialStyle;
+  alignment: Alignment;
+}
+
+export type FunContentType = "memes" | "quotes" | "both";
+
+export interface FunComponentsData {
+  contentType: FunContentType;
+  alignment: Alignment;
+}
+
 export type SectionData =
   | HeroData
   | AboutData
   | TechStackData
   | FeaturesData
   | GitHubWidgetsData
-  | SocialData;
+  | SocialData
+  | VisitorCounterData
+  | TrophiesData
+  | SupportData
+  | FunComponentsData;
 
 export interface Section {
   id: string;

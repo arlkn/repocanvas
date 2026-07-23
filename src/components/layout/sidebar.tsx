@@ -12,12 +12,14 @@ import {
   LayoutGrid,
   BarChart3,
   Users,
-  Scale,
   Eye,
   EyeOff,
   Trash2,
   ChevronUp,
   ChevronDown,
+  Trophy,
+  Heart,
+  Sparkles,
 } from "lucide-react";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -27,7 +29,10 @@ const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
   LayoutGrid,
   BarChart3,
   Users,
-  Scale,
+  Eye,
+  Trophy,
+  Heart,
+  Sparkles,
 };
 
 export function Sidebar() {

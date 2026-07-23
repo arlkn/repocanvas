@@ -8,6 +8,10 @@ import { TechStackEditor } from "@/features/tech-stack/tech-stack-editor";
 import { FeaturesEditor } from "@/features/features/features-editor";
 import { GitHubWidgetsEditor } from "@/features/github-widgets/github-widgets-editor";
 import { SocialEditor } from "@/features/social/social-editor";
+import { VisitorCounterEditor } from "@/features/visitor-counter/visitor-counter-editor";
+import { TrophiesEditor } from "@/features/trophies/trophies-editor";
+import { SupportEditor } from "@/features/support/support-editor";
+import { FunComponentsEditor } from "@/features/fun-components/fun-components-editor";
 
 export function SectionEditor() {
   const { config, selectedSectionId } = useReadmeStore();
@@ -33,6 +37,10 @@ export function SectionEditor() {
           <GitHubWidgetsEditor section={section} />
         )}
         {section.type === "social" && <SocialEditor section={section} />}
+        {section.type === "visitor-counter" && <VisitorCounterEditor section={section} />}
+        {section.type === "trophies" && <TrophiesEditor section={section} />}
+        {section.type === "support" && <SupportEditor section={section} />}
+        {section.type === "fun-components" && <FunComponentsEditor section={section} />}
       </div>
     </ScrollArea>
   );
