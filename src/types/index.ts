@@ -4,8 +4,7 @@ export type SectionType =
   | "tech-stack"
   | "features"
   | "github-widgets"
-  | "social"
-  | "license";
+  | "social";
 
 export type DisplayStyle = "icons" | "logos" | "list" | "grid";
 
@@ -85,22 +84,13 @@ export interface SocialData {
   alignment: Alignment;
 }
 
-export type LicenseType = "MIT" | "Apache-2.0" | "GPL-3.0" | "BSD-2-Clause" | "Unlicense";
-
-export interface LicenseData {
-  type: LicenseType;
-  year: string;
-  copyrightHolder: string;
-}
-
 export type SectionData =
   | HeroData
   | AboutData
   | TechStackData
   | FeaturesData
   | GitHubWidgetsData
-  | SocialData
-  | LicenseData;
+  | SocialData;
 
 export interface Section {
   id: string;

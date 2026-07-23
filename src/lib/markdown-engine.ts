@@ -6,7 +6,6 @@ import type {
   FeaturesData,
   GitHubWidgetsData,
   SocialData,
-  LicenseData,
   TechItem,
   TechGroup,
   Alignment,
@@ -303,18 +302,6 @@ function generateSocialMarkdown(data: SocialData): string {
   return lines.join("\n");
 }
 
-function generateLicenseMarkdown(data: LicenseData): string {
-  const holder = data.copyrightHolder || "Author";
-  const year = data.year || new Date().getFullYear().toString();
-
-  return `## License
-
-This project is licensed under the ${data.type} License - see the [LICENSE](LICENSE) file for details.
-
-© ${year} ${holder}
-`;
-}
-
 export function generateMarkdown(config: ReadmeConfig): string {
   const visibleSections = config.sections.filter((s) => s.visible);
 
@@ -348,9 +335,6 @@ export function generateMarkdown(config: ReadmeConfig): string {
         break;
       case "social":
         parts.push(generateSocialMarkdown(section.data as SocialData));
-        break;
-      case "license":
-        parts.push(generateLicenseMarkdown(section.data as LicenseData));
         break;
     }
   }

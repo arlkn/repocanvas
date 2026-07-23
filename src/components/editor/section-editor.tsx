@@ -8,7 +8,6 @@ import { TechStackEditor } from "@/features/tech-stack/tech-stack-editor";
 import { FeaturesEditor } from "@/features/features/features-editor";
 import { GitHubWidgetsEditor } from "@/features/github-widgets/github-widgets-editor";
 import { SocialEditor } from "@/features/social/social-editor";
-import { LicenseEditor } from "@/features/license/license-editor";
 
 export function SectionEditor() {
   const { config, selectedSectionId } = useReadmeStore();
@@ -34,7 +33,6 @@ export function SectionEditor() {
           <GitHubWidgetsEditor section={section} />
         )}
         {section.type === "social" && <SocialEditor section={section} />}
-        {section.type === "license" && <LicenseEditor section={section} />}
       </div>
     </ScrollArea>
   );

@@ -299,26 +299,6 @@ describe("generateMarkdown", () => {
     expect(md).toContain("| Twitter |");
   });
 
-  it("generates license section", () => {
-    const config: ReadmeConfig = {
-      username: "test",
-      sections: [
-        {
-          id: "1",
-          type: "license",
-          title: "License",
-          visible: true,
-          data: { type: "MIT", year: "2025", copyrightHolder: "Test User" },
-        },
-      ],
-    };
-    const md = generateMarkdown(config);
-    expect(md).toContain("## License");
-    expect(md).toContain("MIT");
-    expect(md).toContain("2025");
-    expect(md).toContain("Test User");
-  });
-
   it("skips hidden sections", () => {
     const config: ReadmeConfig = {
       username: "test",

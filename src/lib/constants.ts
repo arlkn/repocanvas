@@ -8,7 +8,6 @@ import type {
   FeaturesData,
   GitHubWidgetsData,
   SocialData,
-  LicenseData,
 } from "@/types";
 
 export const APP_NAME = "RepoCanvas";
@@ -47,11 +46,6 @@ export const SECTION_TYPES: Record<
     label: "Social",
     description: "Connect with you across platforms",
     icon: "Users",
-  },
-  license: {
-    label: "License",
-    description: "Project license information",
-    icon: "Scale",
   },
 };
 
@@ -240,17 +234,6 @@ export const TEMPLATES: Template[] = [
           visible: true,
           data: { links: [], style: "links", alignment: "center" } as SocialData,
         },
-        {
-          id: "license-dev",
-          type: "license",
-          title: "License",
-          visible: true,
-          data: {
-            type: "MIT",
-            year: new Date().getFullYear().toString(),
-            copyrightHolder: "",
-          } as LicenseData,
-        },
       ],
     },
   },
@@ -319,17 +302,6 @@ export const TEMPLATES: Template[] = [
             activity: true,
             theme: "dark",
           } as GitHubWidgetsData,
-        },
-        {
-          id: "license-show",
-          type: "license",
-          title: "License",
-          visible: true,
-          data: {
-            type: "MIT",
-            year: new Date().getFullYear().toString(),
-            copyrightHolder: "",
-          } as LicenseData,
         },
       ],
     },
@@ -459,17 +431,6 @@ export const TEMPLATES: Template[] = [
           visible: true,
           data: { links: [], style: "cards", alignment: "center" } as SocialData,
         },
-        {
-          id: "license-org",
-          type: "license",
-          title: "License",
-          visible: true,
-          data: {
-            type: "Apache-2.0",
-            year: new Date().getFullYear().toString(),
-            copyrightHolder: "",
-          } as LicenseData,
-        },
       ],
     },
   },
@@ -560,18 +521,6 @@ export function createDefaultSection(type: SectionType): import("@/types").Secti
         title: SECTION_TYPES.social.label,
         visible: true,
         data: { links: [], style: "links", alignment: "center" } as SocialData,
-      };
-    case "license":
-      return {
-        id,
-        type,
-        title: SECTION_TYPES.license.label,
-        visible: true,
-        data: {
-          type: "MIT",
-          year: new Date().getFullYear().toString(),
-          copyrightHolder: "",
-        } as LicenseData,
       };
   }
 }
