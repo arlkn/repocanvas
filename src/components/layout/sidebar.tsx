@@ -50,16 +50,12 @@ export function Sidebar() {
   return (
     <aside className="flex w-[280px] shrink-0 flex-col border-r border-border bg-card">
       {/* Brand */}
-      <div className="flex items-center gap-2 border-b border-border px-4 py-3">
+      <div className="flex h-[120px] items-center justify-center border-b border-border px-4">
         <img
           src="/icon.png"
-          alt="RepoCanvas logo"
-          className="h-8 w-8 rounded-lg object-cover"
+          alt="RepoCanvas"
+          className="max-h-full w-auto rounded-lg object-contain"
         />
-        <div>
-          <h1 className="text-sm font-bold tracking-tight">RepoCanvas</h1>
-          <p className="text-[10px] text-muted-foreground">README Builder</p>
-        </div>
       </div>
 
       {/* Sections */}
