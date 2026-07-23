@@ -51,9 +51,11 @@ export function Sidebar() {
     <aside className="flex w-[280px] shrink-0 flex-col border-r border-border bg-card">
       {/* Brand */}
       <div className="flex items-center gap-2 border-b border-border px-4 py-3">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-          <Rocket className="h-4 w-4 text-primary" />
-        </div>
+        <img
+          src="/icon.png"
+          alt="RepoCanvas logo"
+          className="h-8 w-8 rounded-lg object-cover"
+        />
         <div>
           <h1 className="text-sm font-bold tracking-tight">RepoCanvas</h1>
           <p className="text-[10px] text-muted-foreground">README Builder</p>
