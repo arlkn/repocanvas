@@ -22,15 +22,19 @@
 
 RepoCanvas is a premium GitHub README, profile, and repository branding builder. Create professional READMEs with a visual editor — no Markdown knowledge required.
 
-Choose from 6 templates, add sections like hero banners, tech stacks, feature lists, GitHub widgets, social links, and licenses. See a live preview as you build, then download or copy your README.md.
+Choose from 6 templates, add sections like hero banners, tech stacks, feature lists, GitHub widgets, social links, and more. See a live preview as you build, then download or copy your README.md.
 
 ## Features
 
 - **Visual Section Editor** — Add, reorder, and configure sections with a point-and-click interface
-- **7 Section Types** — Hero, About, Tech Stack, Features, GitHub Widgets, Social, License
-- **79 Technologies** — Pre-configured tech icons via skillicons.dev with shields.io fallback
+- **10 Section Types** — Hero, About, Tech Stack, Features, GitHub Widgets, Social, Visitor Counter, Trophies, Support, Fun
+- **250+ Technologies** — Pre-configured tech icons via skillicons.dev with shields.io fallback
 - **Live Markdown Preview** — See your README rendered in real-time as you edit
 - **GitHub Widgets** — Stats, streak, top languages, and activity graphs with theme support
+- **Visitor Counter** — Dynamic visitor counter badge for your README
+- **GitHub Trophies** — Showcase your GitHub achievements
+- **Support Links** — Ko-fi, Buy Me a Coffee, Patreon, GitHub Sponsors, custom links
+- **Fun Components** — Random memes and quotes to add personality
 - **6 Templates** — Minimal, Developer, Showcase, Creative, Organization, Blank
 - **Export & Copy** — Download as README.md or copy to clipboard instantly
 - **Command Palette** — Quick search and add sections with keyboard shortcuts
@@ -81,10 +85,8 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 | Styling | Tailwind CSS 4 |
 | UI Components | shadcn/ui, Radix UI |
 | State | Zustand (with localStorage persist) |
-| Markdown | react-markdown, remark-gfm |
+| Markdown | react-markdown, remark-gfm, rehype-raw |
 | Icons | Lucide React, skillicons.dev |
-| Animation | Framer Motion |
-| Forms | React Hook Form, Zod |
 | Testing | Vitest, React Testing Library |
 
 ## Architecture
@@ -102,11 +104,14 @@ src/
 ├── features/
 │   ├── hero/                   # Hero section editor
 │   ├── about/                  # About section editor
-│   ├── tech-stack/             # Tech stack editor (79 technologies)
+│   ├── tech-stack/             # Tech stack editor (250+ technologies)
 │   ├── features/               # Features section editor
 │   ├── github-widgets/         # GitHub widgets editor
 │   ├── social/                 # Social links editor
-│   └── license/                # License section editor
+│   ├── visitor-counter/        # Visitor counter section
+│   ├── trophies/               # GitHub trophies section
+│   ├── support/                # Support/donation links section
+│   └── fun-components/         # Memes and quotes section
 ├── lib/
 │   ├── constants.ts            # Technologies, templates, section types
 │   ├── markdown-engine.ts      # Generates README markdown from config
@@ -124,7 +129,6 @@ src/
 - [ ] Profile README builder (separate from repo READMEs)
 - [ ] Custom section types
 - [ ] Import existing README for editing
-- [ ] More GitHub widgets (contributions, sponsors)
 - [ ] SVG badge generator
 - [ ] Template sharing via URL
 - [ ] Multi-language support
