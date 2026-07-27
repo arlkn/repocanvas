@@ -48,6 +48,12 @@ Choose from 6 templates, add sections like hero banners, tech stacks, feature li
 - Node.js 18+
 - npm, yarn, or pnpm
 
+### Quick Start
+
+```bash
+git clone https://github.com/arlkn/repocanvas.git && cd repocanvas && npm install && npm run dev
+```
+
 ### Installation
 
 ```bash
@@ -61,6 +67,15 @@ cd repocanvas
 npm install
 
 # Start the development server
+npm run dev
+```
+
+### Always Get the Latest
+
+```bash
+cd repocanvas
+git pull
+npm install
 npm run dev
 ```
 
