@@ -87,6 +87,7 @@ export function CommandPalette({ open, onClose }: CommandPaletteProps) {
               </div>
               {filteredSections.map((section) => {
                 const meta = SECTION_TYPES[section.type];
+                if (!meta) return null;
                 const Icon = ICON_MAP[meta.icon] ?? FileText;
                 return (
                   <button

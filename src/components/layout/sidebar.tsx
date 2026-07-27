@@ -74,6 +74,7 @@ export function Sidebar() {
         <div className="space-y-1 px-2">
           {config.sections.map((section, index) => {
             const meta = SECTION_TYPES[section.type];
+            if (!meta) return null;
             const Icon = ICON_MAP[meta.icon] ?? FileText;
             const isSelected = section.id === selectedSectionId;
 
